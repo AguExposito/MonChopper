@@ -1,28 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviour
 {
-    public Camera playerCamera;
-    public float walkSpeed = 6f;
-    public float runSpeed = 12f;
-    public float jumpPower = 7f;
-    public float gravity = 10f;
+    [Header("References")]
+    [SerializeField] Camera playerCamera;
 
+    [Space]
+    [Header("Inputs")]
+    [SerializeField] InputActionProperty runInput;
+    [SerializeField] InputActionProperty jumpInput;
 
-    public float lookSpeed = 2f;
-    public float lookXLimit = 45f;
+    [Space]
+    [Header("Movement Variables")]
+    public float walkSpeed;
+    public float runSpeed;
+    public float jumpPower;
+    [SerializeField] float gravity;
 
+    [Space]
+    [Header("Camera Variables")]
+    [SerializeField] float lookSpeed;
+    [SerializeField] float lookXLimit;
 
-    Vector3 moveDirection = Vector3.zero;
-    float rotationX = 0;
+    [Space]
+    [Header("State Variables")]
+    [SerializeField] bool canMove = true;
 
-    public bool canMove = true;
+    [Space]
+    [Header("Read Only Variables"), ReadOnly]
+    [SerializeField] Vector3 moveDirection = Vector3.zero;
+    [SerializeField] float rotationX = 0;
+    [SerializeField] CharacterController characterController;
 
-
-    CharacterController characterController;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -38,7 +52,7 @@ public class FPSController : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
 
         // Press Left Shift to run
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        bool isRunning = runInput.action.inProgress;
         float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
@@ -47,7 +61,7 @@ public class FPSController : MonoBehaviour
         #endregion
 
         #region Handles Jumping
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+        if (jumpInput.action.inProgress && canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpPower;
         }
@@ -75,5 +89,20 @@ public class FPSController : MonoBehaviour
         }
 
         #endregion
+    }
+    public void ChangeMovementVariables(float walkSpeed, float runSpeed, float jumpPower) { 
+        this.walkSpeed = walkSpeed;
+        this.runSpeed = runSpeed;
+        this.jumpPower = jumpPower;
+    } 
+    private void OnEnable()
+    {
+        jumpInput.action.Enable();
+        runInput.action.Enable();
+    }
+    private void OnDisable()
+    {
+        jumpInput.action.Disable();
+        runInput.action.Disable();
     }
 }

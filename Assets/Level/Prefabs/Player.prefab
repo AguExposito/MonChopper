@@ -9968,7 +9968,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5496647020259547640}
-  - component: {fileID: 5047706423357643410}
   - component: {fileID: 751647763647738692}
   m_Layer: 0
   m_Name: Weapon
@@ -9993,19 +9992,6 @@ Transform:
   - {fileID: 2299780112805319938}
   m_Father: {fileID: 9038402123412952323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5047706423357643410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8593849589112605069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c0abef95efece14ab4a7d4a2490548a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reloadKey: 114
 --- !u!114 &751647763647738692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10018,8 +10004,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57fe23f5391ef9e43909647105d5dca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerFPSController: {fileID: 7231120101573173370}
   weaponData: {fileID: 11400000, guid: c574d448dcb332144a7626811ff8cb3c, type: 2}
   cam: {fileID: 9038402123412952323}
+  psShotgun: {fileID: 7743404181146544567}
+  shootInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Shoot Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 8233c4d3-e6b3-4bf4-81b7-62cdc17074f3
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -2382166720873424059, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
+  aimInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Aim Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 2a481475-db57-4fdc-aeb7-e40c87ca2fdd
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -4546134350485861916, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
+  reloadInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Reload Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: c2566d72-73e5-4c6b-973e-be68cb5948be
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -4059781777421904619, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
+  timeSinceLastShot: 0
+  lastAimAnimator: {fileID: 0}
 --- !u!1 &9025466718093644850
 GameObject:
   m_ObjectHideFlags: 0
@@ -10094,6 +10120,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 7480271108611920693}
+  runInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Run Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6a9a5c7d-cf09-4eb9-8c16-66af44458f53
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -6583486604527078459, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
+  jumpInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Jump Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: bc1b660b-32c7-431a-a1e5-2d57fe270b56
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -8315312269812058711, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
   walkSpeed: 4
   runSpeed: 8
   jumpPower: 3
@@ -10101,6 +10151,9 @@ MonoBehaviour:
   lookSpeed: 1.5
   lookXLimit: 70
   canMove: 1
+  moveDirection: {x: 0, y: 0, z: 0}
+  rotationX: 0
+  characterController: {fileID: 0}
 --- !u!114 &4676046728799170223
 MonoBehaviour:
   m_ObjectHideFlags: 0
