@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] private FPSController playerFPSController;
-    [SerializeField] private WeaponData weaponData;
+    public WeaponData weaponData;
     [SerializeField] private Transform cam;
     [SerializeField] private ParticleSystem psShotgun;
 
