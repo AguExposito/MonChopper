@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,9 +10,8 @@ public class Weapon : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] private FPSController playerFPSController;
-    public WeaponData weaponData;
     [SerializeField] private Transform cam;
-    [SerializeField] private ParticleSystem psShotgun;
+    [SerializeField] private HudController hud;
 
     [Space]
     [Header("Inputs")]
@@ -21,12 +21,32 @@ public class Weapon : MonoBehaviour {
 
     [Space]
     [Header("Read Only Variables"), ReadOnly]
+    public WeaponData weaponData;
+    [SerializeField] private ParticleSystem shotPS;
     [SerializeField] float timeSinceLastShot;
     [SerializeField] Animator lastAimAnimator;
+    [SerializeField] WeaponData[] weaponDataScriptObj;
 
-    private void Start() {
-
-    }   
+    private void Awake() {
+        weaponDataScriptObj=Resources.LoadAll<WeaponData>("ScriptableObjects/Weapons");
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeInHierarchy) //Checks some weapon is active
+            {
+                foreach (WeaponData data in weaponDataScriptObj)
+                {
+                    weaponData = transform.GetChild(i).name == data.name ? data : null;
+                    break;
+                }
+                shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>();
+                break;
+            }
+        }
+    }
+    private void Start()
+    {
+        
+    }
 
     private void Update() {
         #region Handles Inputs
@@ -110,8 +130,9 @@ public class Weapon : MonoBehaviour {
             return damage;
         }
     }
-    private void OnGunShot() {  
-        psShotgun.Play();
+    private void OnGunShot() {
+        shotPS.Play();
+        hud.UpdateHudValues();
     }
 #endregion
 
@@ -134,6 +155,7 @@ public class Weapon : MonoBehaviour {
                 {
                     Debug.LogError(anim.gameObject.name +" Doesn't have an animator component");
                 }
+                break;
             }
         }
     }

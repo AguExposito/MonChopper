@@ -26,8 +26,16 @@ public class Player : MonoBehaviour, IDamageable
     {
         
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage) // player takes damage
     {
-        
+        if (armor > damage)
+        {
+            armor -= damage;
+        }
+        else { 
+            armor = 0;
+            health -= damage-armor;
+        }
+        transform.Find("CanvasHUD").GetComponent<HudController>().UpdateHudValues(); //update values in hud
     }
 }
