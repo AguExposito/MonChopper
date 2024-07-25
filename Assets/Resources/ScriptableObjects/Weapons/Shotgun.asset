@@ -16,16 +16,18 @@ MonoBehaviour:
   weaponName: Chotogun
   weaponTier: 0
   fireRate: 2
-  maxDistance: 10
+  maxDistance: 15
   maxDmgDistance: 2
   dispersion: 1
   dispersionSight: 0.5
   bulletDmgMin: 10
-  bulletDmgMax: 100
+  bulletDmgMax: 50
+  bulletCritMultiplier: 2
   bulletAmount: 2
   aiming: 0
   currentAmmo: 4
-  ammoAmount: 42
+  ammoAmount: 9944
   magSize: 4
   reloadTime: 2
   reloading: 0
+  explosionForce: 100

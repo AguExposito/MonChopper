@@ -7,7 +7,7 @@ public class ActivateRagdoll : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    [SerializeField] List<Rigidbody> rigidbodies;
+    [SerializeField] public List<Rigidbody> rigidbodies;
 
     void Start()
     {

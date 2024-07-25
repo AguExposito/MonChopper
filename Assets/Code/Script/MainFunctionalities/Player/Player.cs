@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, IDamageable
     [Space]
     public float health;
     public float armor;
-    public float xp;
+    public int xp;
     public float level;
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         
     }
-    public void TakeDamage(float damage) // player takes damage
+    public void TakeDamage(float damage, WeaponData weaponData) // player takes damage
     {
         if (armor > damage)
         {
@@ -37,5 +37,9 @@ public class Player : MonoBehaviour, IDamageable
             health -= damage-armor;
         }
         transform.Find("CanvasHUD").GetComponent<HudController>().UpdateHudValues(); //update values in hud
+    }
+    public void GetXp(int givenXp) {
+        xp += givenXp;
+        Debug.Log("Got xp: " + givenXp);
     }
 }

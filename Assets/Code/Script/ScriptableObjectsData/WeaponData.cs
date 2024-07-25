@@ -22,6 +22,7 @@ public class WeaponData : ScriptableObject
     [Space]
     public float bulletDmgMin;
     public float bulletDmgMax;
+    public float bulletCritMultiplier;
     public int bulletAmount;
     [Space]
     public bool aiming;
@@ -30,8 +31,9 @@ public class WeaponData : ScriptableObject
     public int currentAmmo;
     public int ammoAmount;
     public int magSize;
-    public int reloadTime;
+    public float reloadTime;
     public bool reloading;
 
-    
+    [Header("OnKill")]
+    public float explosionForce;
 }

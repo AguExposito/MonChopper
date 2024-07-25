@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using UnityEditor.Animations;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,12 +24,13 @@ public class Weapon : MonoBehaviour {
     [Header("Read Only Variables"), ReadOnly]
     public WeaponData weaponData;
     [SerializeField] private ParticleSystem shotPS;
+    [SerializeField] private Animator weaponAnimator;
     [SerializeField] float timeSinceLastShot;
-    [SerializeField] Animator lastAimAnimator;
     [SerializeField] WeaponData[] weaponDataScriptObj;
 
     private void Awake() {
         weaponDataScriptObj=Resources.LoadAll<WeaponData>("ScriptableObjects/Weapons");
+
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeInHierarchy) //Checks some weapon is active
@@ -39,6 +41,8 @@ public class Weapon : MonoBehaviour {
                     break;
                 }
                 shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>();
+                weaponAnimator = transform.GetChild(i).GetComponent<Animator>();
+                weaponAnimator.SetFloat("ReloadSpeed", 1 / weaponData.reloadTime);
                 break;
             }
         }
@@ -80,19 +84,33 @@ public class Weapon : MonoBehaviour {
     #region Reload Methods
     public void StartReload()
     {
-        if (!weaponData.reloading && this.gameObject.activeSelf)
+        if (!weaponData.reloading && this.gameObject.activeSelf && weaponData.ammoAmount!=0)
             StartCoroutine(Reload());
     }
 
     private IEnumerator Reload()
     {
         weaponData.reloading = true;
+        weaponAnimator.SetBool("Reload", true);
+        
+        AnimatorStateInfo stateInfo = weaponAnimator.GetCurrentAnimatorStateInfo(0);
 
         yield return new WaitForSeconds(weaponData.reloadTime);
 
-        weaponData.currentAmmo = weaponData.magSize;
+        if (weaponData.ammoAmount - (weaponData.magSize - weaponData.currentAmmo) >= 0)
+        {
+            weaponData.ammoAmount -= (weaponData.magSize - weaponData.currentAmmo);
+            weaponData.currentAmmo = weaponData.magSize;
+        }
+        else {
+            weaponData.currentAmmo = weaponData.ammoAmount;
+            weaponData.ammoAmount = 0;
+        }        
+
+        hud.UpdateHudValues();
 
         weaponData.reloading = false;
+        weaponAnimator.SetBool("Reload", false);
     }
     #endregion
 
@@ -111,7 +129,7 @@ public class Weapon : MonoBehaviour {
 
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     float distance = Vector3.Distance(transform.position, hitInfo.point);
-                    damageable?.TakeDamage(CalculateDmg(distance));
+                    damageable?.TakeDamage(CalculateDmg(distance), weaponData);
                 }
 
                 weaponData.currentAmmo -= weaponData.bulletAmount;
@@ -123,9 +141,10 @@ public class Weapon : MonoBehaviour {
     //Calculates damage based on distance
     private float CalculateDmg(float distance)
     {
-        if (distance <= weaponData.maxDmgDistance) { return weaponData.bulletDmgMax; }
+        if (distance <= weaponData.maxDmgDistance) { Debug.Log(weaponData.bulletDmgMax); return weaponData.bulletDmgMax; }
         else {
             float damage = Mathf.Lerp(weaponData.bulletDmgMax, weaponData.bulletDmgMin, (distance-weaponData.maxDmgDistance) / (weaponData.maxDistance-weaponData.maxDmgDistance));
+            damage = MathF.Round(damage,2);
             Debug.Log(damage);
             return damage;
         }
@@ -137,33 +156,18 @@ public class Weapon : MonoBehaviour {
 #endregion
 
     #region Aim Methods
-    private void Aim() {
-        for (int i = 0; i < transform.childCount; i++)
+    private void Aim() {        
+        if (!weaponAnimator.GetBool("Aim")) //Checks animation bool to active correctly 
         {
-            if (transform.GetChild(i).gameObject.activeInHierarchy) //Checks some weapon is active
-            {
-                if (transform.GetChild(i).TryGetComponent<Animator>(out Animator anim)) //Checks it has an animator
-                {
-                    if (!anim.GetBool("Aim")) //Checks animation bool to active correctly 
-                    {
-                        lastAimAnimator = anim;
-                        anim.SetBool("Aim", true);
-                        playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed / 2, playerFPSController.runSpeed / 2, playerFPSController.jumpPower);
-                    }
-                }
-                else //Else debugs Error
-                {
-                    Debug.LogError(anim.gameObject.name +" Doesn't have an animator component");
-                }
-                break;
-            }
+            weaponAnimator.SetBool("Aim", true);
+            playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed / 2, playerFPSController.runSpeed / 2, playerFPSController.jumpPower);
         }
     }
 
     private void StopAim() {
-        if (lastAimAnimator != null && lastAimAnimator.GetBool("Aim"))
+        if (weaponAnimator != null && weaponAnimator.GetBool("Aim"))
         {
-            lastAimAnimator.SetBool("Aim", false);
+            weaponAnimator.SetBool("Aim", false);
             playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed * 2, playerFPSController.runSpeed * 2, playerFPSController.jumpPower);
         }
     }
