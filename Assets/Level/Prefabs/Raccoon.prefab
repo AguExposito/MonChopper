@@ -327,7 +327,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2539138689629730770}
   m_Father: {fileID: 7897670105348132589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1844,6 +1845,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6521566969652044839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2539138689629730770}
+  m_Layer: 5
+  m_Name: dmgTxtContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2539138689629730770
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6521566969652044839}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7558423279551320200}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6877431658179780785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,9 +2115,15 @@ MonoBehaviour:
   health: 1000
   minMaxXp: {x: 20, y: 40}
   giveXp: 0
+  dmgColor: {r: 0.8301887, g: 0.30993816, b: 0.2232111, a: 1}
+  critCcolor: {r: 1, g: 0.8951229, b: 0, a: 1}
   jumpForce: 5
   randomDirForce: 1.5
-  popupsCanvas: {fileID: 0}
+  timeToDisable: 3
+  dmgTxtContainer: {fileID: 0}
+  popupCanvas: {fileID: 0}
+  isDead: 0
+  gotCritHit: 0
 --- !u!1 &6917190251460403511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2128,6 +2170,7 @@ GameObject:
   - component: {fileID: 4194972031213299607}
   - component: {fileID: 6050185646029631261}
   - component: {fileID: 3905782973786914789}
+  - component: {fileID: 7565142652375210953}
   m_Layer: 0
   m_Name: beveled_cuboid
   m_TagString: Untagged
@@ -2294,6 +2337,20 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7565142652375210953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315498009190283901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba9a1b6672e8f641a04a3d229da1aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyScript: {fileID: 7157279538375702250}
+  isCritical: 1
 --- !u!1 &7595333302774948685
 GameObject:
   m_ObjectHideFlags: 0

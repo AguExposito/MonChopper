@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private Vector2Int minMaxXp;    
     public int giveXp;
     [SerializeField] private Color dmgColor;
-    [SerializeField] private Color critCcolor;
+    [SerializeField] private Color weakSpotCcolor;
 
     [Header("Text Variables")]
     [SerializeField] private float jumpForce;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private GameObject dmgTxtContainer;
     [SerializeField] private GameObject popupCanvas;
     [SerializeField] private bool isDead = false;
-    [SerializeField] public bool gotCritHit = false;
+    [SerializeField] public bool gotWeakSpotHit = false;
     ActivateRagdoll activateRagdoll;
     // Start is called before the first frame update
     void Start()
@@ -70,9 +70,7 @@ public class Enemy : MonoBehaviour, IDamageable
         isDead = true;
 
         //Activate ragdoll
-        activateRagdoll.SetEnabled(true);
-
-        
+        activateRagdoll.SetEnabled(true);      
 
         //give xp
         player.GetComponent<Player>().GetXp(giveXp);
@@ -104,7 +102,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 }
             }
         }
-        ChangeDmgTxtCrit(dmgTxt);
+        ChangeDmgTxtVariables(dmgTxt);
 
         dmgTxt.GetComponent<TextMeshProUGUI>().text = dmg.ToString();
 
@@ -131,10 +129,10 @@ public class Enemy : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(timeToDisable);
         Destroy(dmgTxtContainer.gameObject);
     }
-    void ChangeDmgTxtCrit(GameObject dmgTxt) {
+    void ChangeDmgTxtVariables(GameObject dmgTxt) {
 
-        dmgTxt.GetComponent<TextMeshProUGUI>().color = gotCritHit ? critCcolor : dmgColor;
-        dmgTxt.GetComponent<TextMeshProUGUI>().fontSize = gotCritHit ? 0.5f: 0.25f;
-        gotCritHit = false;
+        dmgTxt.GetComponent<TextMeshProUGUI>().color = gotWeakSpotHit ? weakSpotCcolor : dmgColor;
+        dmgTxt.GetComponent<TextMeshProUGUI>().fontSize = gotWeakSpotHit ? 0.5f: 0.25f;
+        gotWeakSpotHit = false;
     }
 }

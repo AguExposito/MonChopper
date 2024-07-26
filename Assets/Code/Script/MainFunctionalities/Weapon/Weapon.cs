@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour {
             StopAim();
         }
         //when reload input
-        if (reloadInput.action.inProgress)
+        if (reloadInput.action.inProgress && weaponData.currentAmmo!=weaponData.magSize)
         {
             StartReload();
         }

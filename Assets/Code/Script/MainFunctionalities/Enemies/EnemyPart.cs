@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyPart : MonoBehaviour, IDamageable
 {
     public Enemy enemyScript;
-    public bool isCritical;
+    public bool isWeak;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +19,9 @@ public class EnemyPart : MonoBehaviour, IDamageable
     }
     public void TakeDamage(float damage, WeaponData weaponData)
     {
-        if (isCritical)
+        if (isWeak)
         {
-            enemyScript.gotCritHit = true;
+            enemyScript.gotWeakSpotHit = true;
             enemyScript.TakeDamage(damage * weaponData.bulletCritMultiplier, weaponData);            
         }
         else { enemyScript.TakeDamage(damage, weaponData); }

@@ -20,8 +20,8 @@ MonoBehaviour:
   maxDmgDistance: 2
   dispersion: 1
   dispersionSight: 0.5
-  bulletDmgMin: 10
-  bulletDmgMax: 50
+  bulletDmgMin: 50
+  bulletDmgMax: 200
   bulletCritMultiplier: 2
   bulletAmount: 2
   aiming: 0
@@ -30,4 +30,4 @@ MonoBehaviour:
   magSize: 4
   reloadTime: 2
   reloading: 0
-  explosionForce: 100
+  explosionForce: 200
