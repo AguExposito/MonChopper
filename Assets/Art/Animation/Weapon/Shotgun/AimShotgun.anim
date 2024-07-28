@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Aim
+  m_Name: AimShotgun
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -29,12 +29,12 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.5
-        value: {x: 0, y: -0.275, z: 0.24999978}
-        inSlope: {x: 0, y: 1.5981207, z: 0}
-        outSlope: {x: 0, y: 1.5981207, z: 0}
+        value: {x: 0, y: -0.282, z: 0.25}
+        inSlope: {x: 0, y: 1.5819157, z: 0}
+        outSlope: {x: 0, y: 1.5819157, z: 0}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.2955975, z: 0.33333334}
+        inWeight: {x: 0.33333334, y: 0.119818985, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -126,12 +126,12 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.5
-        value: -0.275
-        inSlope: 1.5981207
-        outSlope: 1.5981207
+        value: -0.282
+        inSlope: 1.5819157
+        outSlope: 1.5819157
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.2955975
+        inWeight: 0.119818985
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -156,7 +156,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.5
-        value: 0.24999978
+        value: 0.25
         inSlope: 0
         outSlope: 0
         tangentMode: 136

@@ -30,7 +30,9 @@ public class Weapon : MonoBehaviour {
 
     private void Awake() {
         weaponDataScriptObj=Resources.LoadAll<WeaponData>("ScriptableObjects/Weapons");
-
+        AssignWeaponVariables();
+    }
+    public void AssignWeaponVariables() {
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeInHierarchy) //Checks some weapon is active
@@ -38,7 +40,7 @@ public class Weapon : MonoBehaviour {
                 foreach (WeaponData data in weaponDataScriptObj)
                 {
                     weaponData = transform.GetChild(i).name == data.name ? data : null;
-                    break;
+                    if (weaponData != null) { break; }
                 }
                 shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>();
                 weaponAnimator = transform.GetChild(i).GetComponent<Animator>();
@@ -93,10 +95,14 @@ public class Weapon : MonoBehaviour {
         weaponData.reloading = true;
         weaponAnimator.SetBool("Reload", true);
         
-        AnimatorStateInfo stateInfo = weaponAnimator.GetCurrentAnimatorStateInfo(0);
+        AnimationClip[] animClips = weaponAnimator.runtimeAnimatorController.animationClips;
+        AnimationClip reloadClip=null;
+        foreach (AnimationClip clip in animClips)
+        {
+            if (clip.name == "Reload"+weaponAnimator.gameObject.name) { reloadClip = clip; }
+        }
 
-        yield return new WaitForSeconds(weaponData.reloadTime);
-
+        yield return new WaitForSeconds(reloadClip.length * weaponData.reloadTime);
         if (weaponData.ammoAmount - (weaponData.magSize - weaponData.currentAmmo) >= 0)
         {
             weaponData.ammoAmount -= (weaponData.magSize - weaponData.currentAmmo);
@@ -161,6 +167,7 @@ public class Weapon : MonoBehaviour {
         {
             weaponAnimator.SetBool("Aim", true);
             playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed / 2, playerFPSController.runSpeed / 2, playerFPSController.jumpPower);
+            weaponData.aiming=true;
         }
     }
 
@@ -169,6 +176,7 @@ public class Weapon : MonoBehaviour {
         {
             weaponAnimator.SetBool("Aim", false);
             playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed * 2, playerFPSController.runSpeed * 2, playerFPSController.jumpPower);
+            weaponData.aiming = false;
         }
     }
     #endregion
@@ -181,7 +189,6 @@ public class Weapon : MonoBehaviour {
     }
     private void OnDisable()
     {
-        weaponData.reloading = false;
         reloadInput.action.Disable();
         shootInput.action.Disable();
         aimInput.action.Disable();

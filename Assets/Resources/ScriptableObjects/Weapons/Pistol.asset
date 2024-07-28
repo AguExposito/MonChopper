@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9baf3a8ff13a77a4ca976ea64818901a, type: 3}
-  m_Name: Shotgun
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  weaponType: 0
-  weaponName: Chotogun
+  weaponType: 1
+  weaponName: Pistol
   weaponTier: 0
-  fireRate: 1
-  maxDistance: 15
-  maxDmgDistance: 5
-  dispersion: 1
-  dispersionSight: 0.5
-  bulletDmgMin: 50
-  bulletDmgMax: 200
+  fireRate: 3
+  maxDistance: 25
+  maxDmgDistance: 12
+  dispersion: 0
+  dispersionSight: 0
+  bulletDmgMin: 20
+  bulletDmgMax: 75
   bulletCritMultiplier: 2
-  bulletAmount: 2
+  bulletAmount: 1
   aiming: 0
-  currentAmmo: 4
-  ammoAmount: 9944
-  magSize: 4
-  reloadTime: 3
+  currentAmmo: 8
+  ammoAmount: 9794
+  magSize: 8
+  reloadTime: 2
   reloading: 0
-  explosionForce: 50
+  explosionForce: 20

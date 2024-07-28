@@ -6,7 +6,7 @@ using GD.MinMaxSlider;
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon")]
 public class WeaponData : ScriptableObject
 {
-    public enum weapon { Shotgun }
+    public enum weapon { Shotgun, Pistol }
     public enum tier { Common, Rare, SuperRare, Legendary, Mythic }
     [Header("Info")]
     public weapon weaponType;
@@ -14,7 +14,7 @@ public class WeaponData : ScriptableObject
     public tier weaponTier;
 
     [Header("Shooting")]
-    public int fireRate;
+    public float fireRate;
     public float maxDistance;
     public float maxDmgDistance;
     public float dispersion;

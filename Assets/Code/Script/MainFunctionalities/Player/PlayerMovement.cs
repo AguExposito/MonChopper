@@ -9,6 +9,7 @@ public class FPSController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Camera playerCamera;
+    [SerializeField] Weapon weapon;
 
     [Space]
     [Header("Inputs")]
@@ -36,9 +37,11 @@ public class FPSController : MonoBehaviour
     [SerializeField] Vector3 moveDirection = Vector3.zero;
     [SerializeField] float rotationX = 0;
     [SerializeField] CharacterController characterController;
+    [SerializeField] HudController hudController;
 
     void Start()
     {
+        hudController = transform.Find("CanvasHUD").GetComponent<HudController>();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -89,12 +92,38 @@ public class FPSController : MonoBehaviour
         }
 
         #endregion
+
+        #region Handles Weapon Change
+        if ((Input.mouseScrollDelta.y==1 || Input.mouseScrollDelta.y == -1) && !weapon.weaponData.reloading && !weapon.weaponData.aiming) {
+            for (int i = 0; i < weapon.transform.childCount; i++)
+            {
+                GameObject equipedWeapon = weapon.transform.GetChild(i).gameObject;
+                if (equipedWeapon.activeInHierarchy) { 
+                    equipedWeapon.SetActive(false);
+                    if (i == weapon.transform.childCount - 1)
+                    {
+                        weapon.transform.GetChild(0).gameObject.SetActive(true);
+                        OnWeaponChange();
+                    }
+                    else {
+                        weapon.transform.GetChild(i+1).gameObject.SetActive(true);
+                        OnWeaponChange();
+                    }
+                    break;
+                }
+            }
+        }
+        #endregion
     }
     public void ChangeMovementVariables(float walkSpeed, float runSpeed, float jumpPower) { 
         this.walkSpeed = walkSpeed;
         this.runSpeed = runSpeed;
         this.jumpPower = jumpPower;
-    } 
+    }
+    void OnWeaponChange() {
+        weapon.AssignWeaponVariables();
+        hudController.UpdateHudValues();
+    }
     private void OnEnable()
     {
         jumpInput.action.Enable();
