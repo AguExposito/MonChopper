@@ -5,6 +5,7 @@ using GD.MinMaxSlider;
 using Unity.Collections;
 using TMPro;
 using System.Reflection;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -27,7 +28,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Read Only Variables"), ReadOnly]
     [SerializeField] private GameObject dmgTxtContainer;
     [SerializeField] private GameObject popupCanvas;
-    [SerializeField] private bool isDead = false;
+    [SerializeField] public bool isDead = false;
     [SerializeField] public bool gotWeakSpotHit = false;
     ActivateRagdoll activateRagdoll;
     // Start is called before the first frame update
@@ -70,7 +71,10 @@ public class Enemy : MonoBehaviour, IDamageable
         isDead = true;
 
         //Activate ragdoll
-        activateRagdoll.SetEnabled(true);      
+        activateRagdoll.SetEnabled(true);
+
+        //Disable NavMesh
+        transform.GetComponent<NavMeshAgent>().enabled=false;
 
         //give xp
         player.GetComponent<Player>().GetXp(giveXp);

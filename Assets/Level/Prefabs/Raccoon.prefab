@@ -887,6 +887,7 @@ GameObject:
   - component: {fileID: 6416295684796206630}
   - component: {fileID: 5565493814085347901}
   - component: {fileID: 9164785006032252378}
+  - component: {fileID: 7834216700017547006}
   m_Layer: 0
   m_Name: bone2
   m_TagString: Untagged
@@ -1004,6 +1005,20 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7834216700017547006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457316813179967920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba9a1b6672e8f641a04a3d229da1aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyScript: {fileID: 7157279538375702250}
+  isWeak: 0
 --- !u!1 &4076070192821235987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,6 +1911,8 @@ GameObject:
   - component: {fileID: 448655971948667090}
   - component: {fileID: 180564496058501254}
   - component: {fileID: 7157279538375702250}
+  - component: {fileID: 3030356575244796722}
+  - component: {fileID: 7263323823549257459}
   m_Layer: 0
   m_Name: Raccoon
   m_TagString: Untagged
@@ -2115,15 +2132,49 @@ MonoBehaviour:
   health: 1000
   minMaxXp: {x: 20, y: 40}
   giveXp: 0
-  dmgColor: {r: 0.8301887, g: 0.30993816, b: 0.2232111, a: 1}
-  critCcolor: {r: 1, g: 0.8951229, b: 0, a: 1}
+  dmgColor: {r: 1, g: 1, b: 1, a: 1}
+  weakSpotCcolor: {r: 0.7735849, g: 0.25907797, b: 0.59135276, a: 1}
   jumpForce: 5
   randomDirForce: 1.5
   timeToDisable: 3
   dmgTxtContainer: {fileID: 0}
   popupCanvas: {fileID: 0}
   isDead: 0
-  gotCritHit: 0
+  gotWeakSpotHit: 0
+--- !u!195 &3030356575244796722
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877431658179780785}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.75
+  m_Speed: 3
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.28
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &7263323823549257459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877431658179780785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0448c2a564e31478e023e3110aa3b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6917190251460403511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,7 +2401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScript: {fileID: 7157279538375702250}
-  isCritical: 1
+  isWeak: 1
 --- !u!1 &7595333302774948685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2708,6 +2759,7 @@ GameObject:
   - component: {fileID: 3725922104718547772}
   - component: {fileID: 6376713744684688267}
   - component: {fileID: 645419653639768152}
+  - component: {fileID: 6668597378220753371}
   m_Layer: 0
   m_Name: bone
   m_TagString: Untagged
@@ -2826,6 +2878,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.13
   m_Center: {x: 0, y: 0.05, z: -0.11}
+--- !u!114 &6668597378220753371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8142508845422384916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba9a1b6672e8f641a04a3d229da1aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyScript: {fileID: 7157279538375702250}
+  isWeak: 0
 --- !u!1 &8146112773825970199
 GameObject:
   m_ObjectHideFlags: 0
@@ -3004,6 +3070,7 @@ GameObject:
   - component: {fileID: 1934564810611642177}
   - component: {fileID: 493815531847049109}
   - component: {fileID: 9076517454820088881}
+  - component: {fileID: 2644695182918946475}
   m_Layer: 0
   m_Name: Tail
   m_TagString: Untagged
@@ -3122,3 +3189,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.13
   m_Center: {x: 0, y: 0, z: -0.13}
+--- !u!114 &2644695182918946475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852468369159885667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba9a1b6672e8f641a04a3d229da1aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyScript: {fileID: 7157279538375702250}
+  isWeak: 0
