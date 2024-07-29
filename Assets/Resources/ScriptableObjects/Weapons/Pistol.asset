@@ -26,7 +26,7 @@ MonoBehaviour:
   bulletAmount: 1
   aiming: 0
   currentAmmo: 8
-  ammoAmount: 9794
+  ammoAmount: 9742
   magSize: 8
   reloadTime: 2
   reloading: 0

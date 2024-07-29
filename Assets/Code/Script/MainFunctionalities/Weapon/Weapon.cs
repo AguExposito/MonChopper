@@ -45,6 +45,7 @@ public class Weapon : MonoBehaviour {
                 shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>();
                 weaponAnimator = transform.GetChild(i).GetComponent<Animator>();
                 weaponAnimator.SetFloat("ReloadSpeed", 1 / weaponData.reloadTime);
+                weaponAnimator.SetFloat("ShootSpeed", weaponData.fireRate);
                 break;
             }
         }
@@ -158,6 +159,12 @@ public class Weapon : MonoBehaviour {
     private void OnGunShot() {
         shotPS.Play();
         hud.UpdateHudValues();
+        weaponAnimator.SetTrigger("Shoot");
+        weaponAnimator.transform.Find("Point Light").gameObject.SetActive(true);
+        Invoke("DisableLight",0.1f);
+    }
+    void DisableLight() {
+        weaponAnimator.transform.Find("Point Light").gameObject.SetActive(false);
     }
 #endregion
 
