@@ -1912,7 +1912,6 @@ GameObject:
   - component: {fileID: 180564496058501254}
   - component: {fileID: 7157279538375702250}
   - component: {fileID: 3030356575244796722}
-  - component: {fileID: 7263323823549257459}
   m_Layer: 0
   m_Name: Raccoon
   m_TagString: Untagged
@@ -2137,6 +2136,10 @@ MonoBehaviour:
   jumpForce: 5
   randomDirForce: 1.5
   timeToDisable: 3
+  enemyNMAgent: {fileID: 0}
+  attackGO: {fileID: 0}
+  attackTrigger: {fileID: 0}
+  enemyAnimator: {fileID: 0}
   dmgTxtContainer: {fileID: 0}
   popupCanvas: {fileID: 0}
   isDead: 0
@@ -2163,18 +2166,6 @@ NavMeshAgent:
   m_BaseOffset: 0.28
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7263323823549257459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6877431658179780785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0448c2a564e31478e023e3110aa3b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6917190251460403511
 GameObject:
   m_ObjectHideFlags: 0

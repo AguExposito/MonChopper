@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GD.MinMaxSlider;
@@ -6,6 +6,7 @@ using Unity.Collections;
 using TMPro;
 using System.Reflection;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -14,11 +15,13 @@ public class Enemy : MonoBehaviour, IDamageable
     GameObject player;
 
     [Header("Variables")]
-    public float health = 100f;
-    [SerializeField] private Vector2Int minMaxXp;    
-    public int giveXp;
     [SerializeField] private Color dmgColor;
     [SerializeField] private Color weakSpotCcolor;
+    [SerializeField] public float health = 100f;
+    [SerializeField] private Vector2Int minMaxXp;
+    [SerializeField] public int giveXp;
+    [SerializeField] float attackDmg;
+    [SerializeField] float attackRate;
 
     [Header("Text Variables")]
     [SerializeField] private float jumpForce;
@@ -26,11 +29,17 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private float timeToDisable;
 
     [Header("Read Only Variables"), ReadOnly]
+    [SerializeField] private NavMeshAgent enemyNMAgent;
+    [SerializeField] private Collider attackGO;
+    [SerializeField] private Collider attackTrigger;
+    [SerializeField] private Animator enemyAnimator;
+    [SerializeField] float timeSinceLastAttack;
     [SerializeField] private GameObject dmgTxtContainer;
     [SerializeField] private GameObject popupCanvas;
     [SerializeField] public bool isDead = false;
+    [SerializeField] public bool isAttacking = false;
     [SerializeField] public bool gotWeakSpotHit = false;
-    ActivateRagdoll activateRagdoll;
+    [SerializeField] ActivateRagdoll activateRagdoll;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,12 +49,34 @@ public class Enemy : MonoBehaviour, IDamageable
 
         popupCanvas = gameObject.transform.Find("PopupsCanvas").gameObject;
         dmgTxtContainer = popupCanvas.transform.GetChild(0).gameObject;
+
+        enemyNMAgent = GetComponent<NavMeshAgent>();
+        enemyAnimator = GetComponent<Animator>();
+        attackGO = transform.Find("Attack").GetComponent<Collider>();
+        attackTrigger = attackGO.transform.Find("Trigger").GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Activates Ragdoll on death
+        if (!isDead)
+        {
+            enemyNMAgent.SetDestination(player.transform.position);
+            if (enemyNMAgent.remainingDistance <= enemyNMAgent.stoppingDistance+0.2f) //Si la distancia es <= a la distancia en la que se tendría que detener + offset, --> mira al player
+            {
+                var lookPos = player.transform.position - transform.position;
+                lookPos.y = 0;
+                var rotation = Quaternion.LookRotation(lookPos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1);
+            }
+        }
+
+        //popupCanvas always looks at player
         popupCanvas.transform.LookAt(transform.position + player.transform.rotation * Vector3.forward, player.transform.rotation * Vector3.up);
+
+        //Attack Methods
+        Attack();
         
     }
 
@@ -82,6 +113,8 @@ public class Enemy : MonoBehaviour, IDamageable
         //deletes all dmgTxt and canvas
         StartCoroutine(DestroyCanvas());        
     }
+
+    #region PopupCanvasDMG
     void PopupDmg(float dmg) {
         GameObject dmgTxt=null;
         
@@ -139,4 +172,45 @@ public class Enemy : MonoBehaviour, IDamageable
         dmgTxt.GetComponent<TextMeshProUGUI>().fontSize = gotWeakSpotHit ? 0.5f: 0.25f;
         gotWeakSpotHit = false;
     }
+
+    #endregion
+
+    #region Attack
+    public void ActivateAttakVFX()
+    {
+        for (int i = 0; i < attackGO.transform.childCount; i++)
+        {
+            if (attackGO.transform.GetChild(i).CompareTag("AttackVFX"))
+            {
+                attackGO.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
+                break;
+            }
+        }
+    }
+
+    void Attack()
+    {
+        if (attackTrigger.GetComponent<EnemyTrigger>().triggeringAttack && !isAttacking && timeSinceLastAttack>= 1f / attackRate && !isDead) {
+            enemyAnimator.SetTrigger("Attack");
+            isAttacking = true;
+            timeSinceLastAttack = 0;
+        }
+        if (!isAttacking) //Delay Attak
+        {
+            if (timeSinceLastAttack < 1f / attackRate)
+            {
+                timeSinceLastAttack += Time.deltaTime;
+            }
+        }
+    }
+
+    public void ToogleAttackState(int state) //0=false, other number = true
+    {
+        if (state == 0)
+        {
+            isAttacking = false;
+        }
+        else { isAttacking = true; }
+    }
+    #endregion
 }
