@@ -19,12 +19,14 @@ MonoBehaviour:
   maxDistance: 15
   maxDmgDistance: 5
   dispersion: 1
-  dispersionSight: 0.5
   bulletDmgMin: 50
   bulletDmgMax: 200
   bulletCritMultiplier: 2
   bulletAmount: 2
   aiming: 0
+  aimTime: 1
+  dispersionSight: 0.5
+  aimFOV: 80
   currentAmmo: 4
   ammoAmount: 9864
   magSize: 4

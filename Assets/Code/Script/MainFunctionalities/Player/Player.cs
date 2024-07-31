@@ -32,9 +32,10 @@ public class Player : MonoBehaviour, IDamageable
         {
             armor -= damage;
         }
-        else { 
+        else
+        {
+            health -= damage - armor;
             armor = 0;
-            health -= damage-armor;
         }
         transform.Find("CanvasHUD").GetComponent<HudController>().UpdateHudValues(); //update values in hud
     }

@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     [Header("References")]
     [SerializeField] private GameObject popupDmg;
-    GameObject player;
+    [SerializeField] private LayerMask obstacleMask;
+    private GameObject player;
 
     [Header("Variables")]
     [SerializeField] private Color dmgColor;
@@ -22,6 +23,10 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] public int giveXp;
     [SerializeField] float attackDmg;
     [SerializeField] float attackRate;
+    [SerializeField] float fovAngle;
+    [SerializeField] float viewDistance;
+    [SerializeField] float viewRadius;
+    [SerializeField] float followTime;
 
     [Header("Text Variables")]
     [SerializeField] private float jumpForce;
@@ -30,10 +35,11 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [Header("Read Only Variables"), ReadOnly]
     [SerializeField] private NavMeshAgent enemyNMAgent;
-    [SerializeField] private Collider attackGO;
+    [SerializeField] private Collider attack;
     [SerializeField] private Collider attackTrigger;
     [SerializeField] private Animator enemyAnimator;
     [SerializeField] float timeSinceLastAttack;
+    [SerializeField] float timeSinceLastSeen;
     [SerializeField] private GameObject dmgTxtContainer;
     [SerializeField] private GameObject popupCanvas;
     [SerializeField] public bool isDead = false;
@@ -52,15 +58,27 @@ public class Enemy : MonoBehaviour, IDamageable
 
         enemyNMAgent = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
-        attackGO = transform.Find("Attack").GetComponent<Collider>();
-        attackTrigger = attackGO.transform.Find("Trigger").GetComponent<Collider>();
+        attack = transform.Find("Attack").GetComponent<Collider>();
+        attackTrigger = attack.transform.Find("Trigger").GetComponent<Collider>();
+
+        timeSinceLastSeen = followTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Activates Ragdoll on death
-        if (!isDead)
+        //Counts how much time will enemy follow up player
+        if (timeSinceLastSeen < followTime)
+        {
+            timeSinceLastSeen += Time.deltaTime;
+        }
+        //Resets counter
+        if (IsPlayerInVision())
+        {
+            timeSinceLastSeen = 0;
+        }
+        //Manages if nav mesh should activate or not
+        if (!isDead && (IsPlayerInVision() || timeSinceLastSeen<followTime))
         {
             enemyNMAgent.SetDestination(player.transform.position);
             if (enemyNMAgent.remainingDistance <= enemyNMAgent.stoppingDistance+0.2f) //Si la distancia es <= a la distancia en la que se tendría que detener + offset, --> mira al player
@@ -68,7 +86,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 var lookPos = player.transform.position - transform.position;
                 lookPos.y = 0;
                 var rotation = Quaternion.LookRotation(lookPos);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
             }
         }
 
@@ -79,7 +97,33 @@ public class Enemy : MonoBehaviour, IDamageable
         Attack();
         
     }
+    bool IsPlayerInVision()
+    {
+        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+        // Verifica si el jugador está dentro de la distancia de visión
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        // Verifica si el jugador está dentro del ángulo de visión
+        if (angleToPlayer < fovAngle / 2)
+        {            
+            if (distanceToPlayer < viewDistance)
+            {
+                // Realiza un raycast para verificar si hay una línea de visión clara
+                if (!Physics.Raycast(transform.position, directionToPlayer, distanceToPlayer, obstacleMask))
+                {
+                    return true;
+                }
+            }
+        }
+        if (distanceToPlayer < viewRadius) {
+            if (!Physics.Raycast(transform.position, directionToPlayer, distanceToPlayer, obstacleMask))
+            {
+                return true;
+            }
+        }
 
+        return false;
+    }
     public void TakeDamage(float damage, WeaponData weaponData)
     {
         if (health > 0)
@@ -90,6 +134,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 OnDeath(weaponData);
             }
             PopupDmg(damage);
+            timeSinceLastSeen = 0;
         }
         foreach (Rigidbody rb in activateRagdoll.rigidbodies)
         {
@@ -178,11 +223,11 @@ public class Enemy : MonoBehaviour, IDamageable
     #region Attack
     public void ActivateAttakVFX()
     {
-        for (int i = 0; i < attackGO.transform.childCount; i++)
+        for (int i = 0; i < attack.transform.childCount; i++)
         {
-            if (attackGO.transform.GetChild(i).CompareTag("AttackVFX"))
+            if (attack.transform.GetChild(i).CompareTag("AttackVFX"))
             {
-                attackGO.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
+                attack.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
                 break;
             }
         }
@@ -190,10 +235,16 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void Attack()
     {
-        if (attackTrigger.GetComponent<EnemyTrigger>().triggeringAttack && !isAttacking && timeSinceLastAttack>= 1f / attackRate && !isDead) {
+        if (attackTrigger.GetComponent<EnemyTrigger>().triggeringAttack && !isAttacking && timeSinceLastAttack >= 1f / attackRate && !isDead && IsPlayerInVision()) {
             enemyAnimator.SetTrigger("Attack");
             isAttacking = true;
             timeSinceLastAttack = 0;
+            //Apply Damage to Player
+            if (attack.bounds.Intersects(player.GetComponent<CharacterController>().bounds))
+            {
+                IDamageable damageable = player.GetComponent<IDamageable>();
+                damageable?.TakeDamage(attackDmg, null);
+            }
         }
         if (!isAttacking) //Delay Attak
         {
@@ -213,4 +264,22 @@ public class Enemy : MonoBehaviour, IDamageable
         else { isAttacking = true; }
     }
     #endregion
+    private void OnDrawGizmos()
+    {
+        // Color de las líneas del cono de visión
+        Gizmos.color = Color.yellow;
+
+        // Dibuja el cono de visión
+        Vector3 forward = transform.forward * viewDistance;
+        Vector3 rightBoundary = Quaternion.Euler(0, fovAngle / 2, 0) * forward;
+        Vector3 leftBoundary = Quaternion.Euler(0, -fovAngle / 2, 0) * forward;
+
+        // Dibuja los límites del cono de visión
+        Gizmos.DrawRay(transform.position, rightBoundary);
+        Gizmos.DrawRay(transform.position, leftBoundary);
+        Gizmos.DrawWireSphere(transform.position,viewRadius);
+
+        // Dibuja una esfera en la distancia máxima de visión para dar contexto
+        Gizmos.DrawWireSphere(transform.position + forward, 0.5f);
+    }
 }

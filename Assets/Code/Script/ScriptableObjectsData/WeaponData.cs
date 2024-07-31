@@ -18,14 +18,19 @@ public class WeaponData : ScriptableObject
     public float maxDistance;
     public float maxDmgDistance;
     public float dispersion;
-    public float dispersionSight;
+    
     [Space]
     public float bulletDmgMin;
     public float bulletDmgMax;
     public float bulletCritMultiplier;
     public int bulletAmount;
+
     [Space]
+    [Header("Aim")]
     public bool aiming;
+    public float aimTime;
+    public float dispersionSight;
+    public float aimFOV;
 
     [Header("Reloading")]
     public int currentAmmo;

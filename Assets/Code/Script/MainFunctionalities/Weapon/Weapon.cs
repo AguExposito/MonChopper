@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour {
     [SerializeField] private Animator weaponAnimator;
     [SerializeField] float timeSinceLastShot;
     [SerializeField] WeaponData[] weaponDataScriptObj;
-
+    float initialCameraFOV;
     private void Awake() {
         weaponDataScriptObj=Resources.LoadAll<WeaponData>("ScriptableObjects/Weapons");
         AssignWeaponVariables();
@@ -46,13 +46,14 @@ public class Weapon : MonoBehaviour {
                 weaponAnimator = transform.GetChild(i).GetComponent<Animator>();
                 weaponAnimator.SetFloat("ReloadSpeed", 1 / weaponData.reloadTime);
                 weaponAnimator.SetFloat("ShootSpeed", weaponData.fireRate);
+                weaponAnimator.SetFloat("AimSpeed", 1/weaponData.aimTime);
                 break;
             }
         }
     }
     private void Start()
     {
-        
+        initialCameraFOV = transform.parent.GetComponent<Camera>().fieldOfView;
     }
 
     private void Update() {
@@ -87,8 +88,10 @@ public class Weapon : MonoBehaviour {
     #region Reload Methods
     public void StartReload()
     {
-        if (!weaponData.reloading && this.gameObject.activeSelf && weaponData.ammoAmount!=0)
+        if (!weaponData.reloading && this.gameObject.activeSelf && weaponData.ammoAmount != 0)
+        {
             StartCoroutine(Reload());
+        }
     }
 
     private IEnumerator Reload()
@@ -170,21 +173,39 @@ public class Weapon : MonoBehaviour {
 
     #region Aim Methods
     private void Aim() {        
-        if (!weaponAnimator.GetBool("Aim")) //Checks animation bool to active correctly 
+        if (!weaponAnimator.GetBool("Aim")&&!weaponData.reloading && weaponData.aiming == false) //Checks animation bool to active correctly 
         {
             weaponAnimator.SetBool("Aim", true);
             playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed / 2, playerFPSController.runSpeed / 2, playerFPSController.jumpPower);
             weaponData.aiming=true;
+            //StartCoroutine(ChangeCameraFov(initialCameraFOV,weaponData.aimFOV, (1 / weaponData.aimTime) / 2)); //Divided by 2 because aim anim is only 30s
         }
     }
 
     private void StopAim() {
-        if (weaponAnimator != null && weaponAnimator.GetBool("Aim"))
+        if (weaponAnimator != null && weaponAnimator.GetBool("Aim") && !weaponData.reloading && weaponData.aiming == true)
         {
             weaponAnimator.SetBool("Aim", false);
             playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed * 2, playerFPSController.runSpeed * 2, playerFPSController.jumpPower);
             weaponData.aiming = false;
+            //StartCoroutine(ChangeCameraFov(weaponData.aimFOV,initialCameraFOV, (1 / weaponData.aimTime) / 2)); //Divided by 2 because aim anim is only 30s
         }
+    }
+    private IEnumerator ChangeCameraFov(float iniFovVal, float targetFovValue, float time)
+    {
+        float t = 0f;
+        float i = 0f;
+        yield return new WaitForSeconds(0.5f);
+        while (t < time)
+        {
+            transform.parent.GetComponent<Camera>().fieldOfView = Mathf.Lerp(iniFovVal, targetFovValue, t / time);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        // Asegurar que el FOV se establece exactamente en el valor objetivo al final
+        transform.parent.GetComponent<Camera>().fieldOfView = targetFovValue;
+        
     }
     #endregion
 

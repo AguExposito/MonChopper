@@ -12711,8 +12711,8 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -8315312269812058711, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
-  walkSpeed: 4
-  runSpeed: 8
+  walkSpeed: 3
+  runSpeed: 6
   jumpPower: 3
   gravity: 9.18
   lookSpeed: 1.5
