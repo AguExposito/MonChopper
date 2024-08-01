@@ -194,7 +194,6 @@ public class Weapon : MonoBehaviour {
     private IEnumerator ChangeCameraFov(float iniFovVal, float targetFovValue, float time)
     {
         float t = 0f;
-        float i = 0f;
         yield return new WaitForSeconds(0.5f);
         while (t < time)
         {
