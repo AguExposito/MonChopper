@@ -22,10 +22,11 @@ public class Weapon : MonoBehaviour {
 
     [Space]
     [Header("Read Only Variables"), ReadOnly]
-    public WeaponData weaponData;
+    [SerializeField] public WeaponData weaponData;
     [SerializeField] private ParticleSystem shotPS;
     [SerializeField] private Animator weaponAnimator;
     [SerializeField] float timeSinceLastShot;
+    [SerializeField] PopupDMG popupDmg;
     [SerializeField] WeaponData[] weaponDataScriptObj;
     float initialCameraFOV;
     private void Awake() {
@@ -54,6 +55,7 @@ public class Weapon : MonoBehaviour {
     private void Start()
     {
         initialCameraFOV = transform.parent.GetComponent<Camera>().fieldOfView;
+        popupDmg=GetComponent<PopupDMG>();
     }
 
     private void Update() {
@@ -140,6 +142,12 @@ public class Weapon : MonoBehaviour {
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     float distance = Vector3.Distance(transform.position, hitInfo.point);
                     damageable?.TakeDamage(CalculateDmg(distance), weaponData);
+                    if(damageable != null)//Checks if hits something
+                    {
+                        popupDmg.gotWeakSpotHit = hitInfo.transform.GetComponent<EnemyPart>().isWeak;//Checks if its a weak spot for critical dmg
+                        popupDmg.PopupDmg(CalculateDmg(distance), hitInfo.point); //Popsup dmg text
+                        Debug.Log(hitInfo.point);
+                    }
                 }
 
                 weaponData.currentAmmo -= weaponData.bulletAmount;
@@ -155,7 +163,6 @@ public class Weapon : MonoBehaviour {
         else {
             float damage = Mathf.Lerp(weaponData.bulletDmgMax, weaponData.bulletDmgMin, (distance-weaponData.maxDmgDistance) / (weaponData.maxDistance-weaponData.maxDmgDistance));
             damage = MathF.Round(damage,2);
-            Debug.Log(damage);
             return damage;
         }
     }

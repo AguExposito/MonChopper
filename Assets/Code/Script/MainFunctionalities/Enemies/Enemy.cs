@@ -133,7 +133,7 @@ public class Enemy : MonoBehaviour, IDamageable
             {
                 OnDeath(weaponData);
             }
-            PopupDmg(damage);
+            //PopupDmg(damage);
             timeSinceLastSeen = 0;
         }
         foreach (Rigidbody rb in activateRagdoll.rigidbodies)
