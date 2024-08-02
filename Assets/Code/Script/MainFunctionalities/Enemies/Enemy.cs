@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
         attackTrigger = attack.transform.Find("Trigger").GetComponent<Collider>();
 
         timeSinceLastSeen = followTime;
-        Debug.Log(enemyNMAgent.destination);
     }
 
     // Update is called once per frame
@@ -60,7 +59,7 @@ public class Enemy : MonoBehaviour
         {
             timeSinceLastSeen += Time.deltaTime;
         }
-        else if (enemyNMAgent.remainingDistance <= enemyNMAgent.stoppingDistance + 0.2f)  //if reached destination and not following player
+        else if (enemyNMAgent.isActiveAndEnabled && enemyNMAgent.remainingDistance <= enemyNMAgent.stoppingDistance + 0.2f)  //if reached destination and not following player
         {
             enemyNMAgent.SetDestination(transform.position); //Sets destination (itself)
             enemyAnimator.SetBool("Walk", false);
