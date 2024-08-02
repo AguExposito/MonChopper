@@ -141,13 +141,16 @@ public class Weapon : MonoBehaviour {
 
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     float distance = Vector3.Distance(transform.position, hitInfo.point);
-                    damageable?.TakeDamage(CalculateDmg(distance), weaponData);
-                    if(damageable != null)//Checks if hits something
+                    //DMG feedback
+                    if(damageable != null && !hitInfo.transform.GetComponent<EnemyPart>().enemyScript.isDead)//Checks if hits something and is not dead
                     {
                         popupDmg.gotWeakSpotHit = hitInfo.transform.GetComponent<EnemyPart>().isWeak;//Checks if its a weak spot for critical dmg
-                        popupDmg.PopupDmg(CalculateDmg(distance), hitInfo.point); //Popsup dmg text
+                        float damage = popupDmg.gotWeakSpotHit? CalculateDmg(distance)*weaponData.bulletCritMultiplier : CalculateDmg(distance); //if its critial applies critical modifier
+                        popupDmg.PopupDmg(damage, hitInfo.point); //Popsup dmg text
                         Debug.Log(hitInfo.point);
                     }
+                    //Appl DMG
+                    damageable?.TakeDamage(CalculateDmg(distance), weaponData);
                 }
 
                 weaponData.currentAmmo -= weaponData.bulletAmount;

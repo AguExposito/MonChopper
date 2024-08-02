@@ -21,9 +21,25 @@ public class EnemyPart : MonoBehaviour, IDamageable
     {
         if (isWeak)
         {
-            enemyScript.gotWeakSpotHit = true;
-            enemyScript.TakeDamage(damage * weaponData.bulletCritMultiplier, weaponData);            
+            damage *= weaponData.bulletCritMultiplier;
         }
-        else { enemyScript.TakeDamage(damage, weaponData); }
+        if (enemyScript.health > 0)
+        {
+            enemyScript.health -= damage;
+            if (enemyScript.health <= 0)
+            {
+                enemyScript.OnDeath(weaponData);
+            }
+            //PopupDmg(damage);
+            enemyScript.timeSinceLastSeen = 0;
+        }
+        foreach (Rigidbody rb in enemyScript.activateRagdoll.rigidbodies)
+        {
+            //Apply force
+            Vector3 forceDirection = (rb.gameObject.transform.position - enemyScript.player.transform.position).normalized;
+            rb.AddForce(weaponData.explosionForce * forceDirection, ForceMode.Impulse);
+        }
+
+        
     }
 }
