@@ -28,7 +28,7 @@ public class EnemyPart : MonoBehaviour, IDamageable
             enemyScript.health -= damage;
             if (enemyScript.health <= 0)
             {
-                enemyScript.OnDeath(weaponData);
+                enemyScript.OnDeath();
             }
             //PopupDmg(damage);
             enemyScript.timeSinceLastSeen = 0;

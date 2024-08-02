@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
         attackTrigger = attack.transform.Find("Trigger").GetComponent<Collider>();
 
         timeSinceLastSeen = followTime;
+        Debug.Log(enemyNMAgent.destination);
     }
 
     // Update is called once per frame
@@ -59,6 +60,11 @@ public class Enemy : MonoBehaviour
         {
             timeSinceLastSeen += Time.deltaTime;
         }
+        else if (enemyNMAgent.remainingDistance <= enemyNMAgent.stoppingDistance + 0.2f)  //if reached destination and not following player
+        {
+            enemyNMAgent.SetDestination(transform.position); //Sets destination (itself)
+            enemyAnimator.SetBool("Walk", false);
+        }
         //Resets counter
         if (IsPlayerInVision())
         {
@@ -67,7 +73,8 @@ public class Enemy : MonoBehaviour
         //Manages if nav mesh should activate or not
         if (!isDead && (IsPlayerInVision() || timeSinceLastSeen<followTime))
         {
-            enemyNMAgent.SetDestination(player.transform.position);
+            enemyAnimator.SetBool("Walk",true);
+            enemyNMAgent.SetDestination(player.transform.position); //Sets destination (player)
             if (enemyNMAgent.remainingDistance <= enemyNMAgent.stoppingDistance+0.2f) //Si la distancia es <= a la distancia en la que se tendría que detener + offset, --> mira al player
             {
                 var lookPos = player.transform.position - transform.position;
@@ -84,14 +91,14 @@ public class Enemy : MonoBehaviour
     {
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
-        // Verifica si el jugador está dentro de la distancia de visión
+        // Verifies if Player is inside vision distance
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        // Verifica si el jugador está dentro del ángulo de visión
+        // Verifies if Player is inside vision angle
         if (angleToPlayer < fovAngle / 2)
         {            
             if (distanceToPlayer < viewDistance)
             {
-                // Realiza un raycast para verificar si hay una línea de visión clara
+                // Perform a raycast to check if there is a clear line of sight
                 if (!Physics.Raycast(transform.position, directionToPlayer, distanceToPlayer, obstacleMask))
                 {
                     return true;
@@ -107,7 +114,7 @@ public class Enemy : MonoBehaviour
 
         return false;
     }
-    public void OnDeath(WeaponData weaponData) {
+    public void OnDeath() {
         isDead = true;
 
         //Activate ragdoll
@@ -117,7 +124,10 @@ public class Enemy : MonoBehaviour
         transform.GetComponent<NavMeshAgent>().enabled=false;
 
         //give xp
-        player.GetComponent<Player>().GetXp(giveXp);      
+        player.GetComponent<Player>().GetXp(giveXp);  
+        
+        //Disables Attack visuals
+        attack.gameObject.SetActive(false);
     }
 
     #region Attack
@@ -166,20 +176,20 @@ public class Enemy : MonoBehaviour
     #endregion
     private void OnDrawGizmos()
     {
-        // Color de las líneas del cono de visión
+        // Color of vision cone
         Gizmos.color = Color.yellow;
 
-        // Dibuja el cono de visión
+        // Draw the vision cone
         Vector3 forward = transform.forward * viewDistance;
         Vector3 rightBoundary = Quaternion.Euler(0, fovAngle / 2, 0) * forward;
         Vector3 leftBoundary = Quaternion.Euler(0, -fovAngle / 2, 0) * forward;
 
-        // Dibuja los límites del cono de visión
+        // Draw the boundaries of the vision cone
         Gizmos.DrawRay(transform.position, rightBoundary);
         Gizmos.DrawRay(transform.position, leftBoundary);
         Gizmos.DrawWireSphere(transform.position,viewRadius);
 
-        // Dibuja una esfera en la distancia máxima de visión para dar contexto
+        // Draw a sphere at maximum viewing distance to give context
         Gizmos.DrawWireSphere(transform.position + forward, 0.5f);
     }
 }

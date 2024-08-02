@@ -147,7 +147,6 @@ public class Weapon : MonoBehaviour {
                         popupDmg.gotWeakSpotHit = hitInfo.transform.GetComponent<EnemyPart>().isWeak;//Checks if its a weak spot for critical dmg
                         float damage = popupDmg.gotWeakSpotHit? CalculateDmg(distance)*weaponData.bulletCritMultiplier : CalculateDmg(distance); //if its critial applies critical modifier
                         popupDmg.PopupDmg(damage, hitInfo.point); //Popsup dmg text
-                        Debug.Log(hitInfo.point);
                     }
                     //Appl DMG
                     damageable?.TakeDamage(CalculateDmg(distance), weaponData);
