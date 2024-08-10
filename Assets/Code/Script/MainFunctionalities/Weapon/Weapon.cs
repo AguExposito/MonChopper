@@ -13,7 +13,9 @@ public class Weapon : MonoBehaviour {
     [SerializeField] private FPSController playerFPSController;
     [SerializeField] private Transform cam;
     [SerializeField] private HudController hud;
-
+    [Space]
+    [Header("State Variables")]
+    [SerializeField] public bool isMenuActive;
     [Space]
     [Header("Inputs")]
     [SerializeField] InputActionProperty shootInput;
@@ -28,7 +30,6 @@ public class Weapon : MonoBehaviour {
     [SerializeField] float timeSinceLastShot;
     [SerializeField] PopupDMG popupDmg;
     [SerializeField] WeaponData[] weaponDataScriptObj;
-    float initialCameraFOV;
     private void Awake() {
         weaponDataScriptObj=Resources.LoadAll<WeaponData>("ScriptableObjects/Weapons");
         AssignWeaponVariables();
@@ -43,7 +44,7 @@ public class Weapon : MonoBehaviour {
                     weaponData = transform.GetChild(i).name == data.name ? data : null;
                     if (weaponData != null) { break; }
                 }
-                shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>();
+                shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>()!=null? transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>():null;
                 weaponAnimator = transform.GetChild(i).GetComponent<Animator>();
                 weaponAnimator.SetFloat("ReloadSpeed", 1 / weaponData.reloadTime);
                 weaponAnimator.SetFloat("ShootSpeed", weaponData.fireRate);
@@ -54,7 +55,6 @@ public class Weapon : MonoBehaviour {
     }
     private void Start()
     {
-        initialCameraFOV = transform.parent.GetComponent<Camera>().fieldOfView;
         popupDmg=GetComponent<PopupDMG>();
     }
 
@@ -128,7 +128,7 @@ public class Weapon : MonoBehaviour {
 
     #region Shoot Methods
     //Condicion para disparar
-    private bool CanShoot() => !weaponData.reloading && timeSinceLastShot > 1f / (weaponData.fireRate);
+    private bool CanShoot() => !weaponData.reloading && !isMenuActive && timeSinceLastShot > 1f / (weaponData.fireRate);
 
     private void Shoot()
     {
@@ -169,14 +169,31 @@ public class Weapon : MonoBehaviour {
         }
     }
     private void OnGunShot() {
-        shotPS.Play();
+        if (shotPS != null)
+        {
+            shotPS.Play();
+        }
         hud.UpdateHudValues();
         weaponAnimator.SetTrigger("Shoot");
-        weaponAnimator.transform.Find("Point Light").gameObject.SetActive(true);
+        for (int i = 0; i < weaponAnimator.transform.childCount; i++)
+        {
+            if (weaponAnimator.transform.GetChild(i).name== "Point Light") 
+            {
+                weaponAnimator.transform.Find("Point Light").gameObject.SetActive(true);
+                break;
+            }
+        }
         Invoke("DisableLight",0.1f);
     }
     void DisableLight() {
-        weaponAnimator.transform.Find("Point Light").gameObject.SetActive(false);
+        for (int i = 0; i < weaponAnimator.transform.childCount; i++)
+        {
+            if (weaponAnimator.transform.GetChild(i).name == "Point Light")
+            {
+                weaponAnimator.transform.Find("Point Light").gameObject.SetActive(false);
+                break;
+            }
+        }
     }
 #endregion
 

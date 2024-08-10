@@ -9,12 +9,14 @@ public class FPSController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Camera playerCamera;
-    [SerializeField] Weapon weapon;
+    [SerializeField] public Weapon weapon;
+    [SerializeField] MenuController menu;
 
     [Space]
     [Header("Inputs")]
     [SerializeField] InputActionProperty runInput;
     [SerializeField] InputActionProperty jumpInput;
+    [SerializeField] InputActionProperty menuInput;
 
     [Space]
     [Header("Movement Variables")]
@@ -25,7 +27,7 @@ public class FPSController : MonoBehaviour
 
     [Space]
     [Header("Camera Variables")]
-    [SerializeField] float lookSpeed;
+    [SerializeField] public float lookSpeed;
     [SerializeField] float lookXLimit;
 
     [Space]
@@ -49,6 +51,18 @@ public class FPSController : MonoBehaviour
 
     void Update()
     {
+        #region Handles UI events
+        if (menuInput.action.WasPerformedThisFrame()) {
+            if (menu.gameObject.activeInHierarchy) 
+            {
+                menu.gameObject.SetActive(false); //Deactivates menu on input
+            }
+            else 
+            { 
+                menu.gameObject.SetActive(true); //Activates menu on input
+            }
+        }
+        #endregion
 
         #region Handles Movment
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -128,10 +142,12 @@ public class FPSController : MonoBehaviour
     {
         jumpInput.action.Enable();
         runInput.action.Enable();
+        menuInput.action.Enable();
     }
     private void OnDisable()
     {
         jumpInput.action.Disable();
         runInput.action.Disable();
+        menuInput.action.Disable();
     }
 }
