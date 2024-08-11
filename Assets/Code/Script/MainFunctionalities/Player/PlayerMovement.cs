@@ -10,13 +10,14 @@ public class FPSController : MonoBehaviour
     [Header("References")]
     [SerializeField] Camera playerCamera;
     [SerializeField] public Weapon weapon;
-    [SerializeField] MenuController menu;
+    [SerializeField] MenuController screenUI;
 
     [Space]
     [Header("Inputs")]
     [SerializeField] InputActionProperty runInput;
     [SerializeField] InputActionProperty jumpInput;
     [SerializeField] InputActionProperty menuInput;
+    [SerializeField] InputActionProperty inventoryInput;
 
     [Space]
     [Header("Movement Variables")]
@@ -52,16 +53,36 @@ public class FPSController : MonoBehaviour
     void Update()
     {
         #region Handles UI events
+            #region Menu
         if (menuInput.action.WasPerformedThisFrame()) {
-            if (menu.gameObject.activeInHierarchy) 
+            if (screenUI.gameObject.activeInHierarchy) 
             {
-                menu.gameObject.SetActive(false); //Deactivates menu on input
+                screenUI.gameObject.SetActive(false); //Deactivates menu on input
+                screenUI.transform.GetChild(0).Find("Menu").gameObject.SetActive(false);
+                screenUI.transform.GetChild(0).Find("Inventory").gameObject.SetActive(false); //Also deactivates inventory ui
             }
             else 
-            { 
-                menu.gameObject.SetActive(true); //Activates menu on input
+            {
+                screenUI.gameObject.SetActive(true); //Activates menu on input
+                screenUI.transform.GetChild(0).Find("Menu").gameObject.SetActive(true);
             }
         }
+        #endregion
+            #region Inventory
+        if (inventoryInput.action.WasPerformedThisFrame() && !screenUI.transform.GetChild(0).Find("Menu").gameObject.activeInHierarchy) //Checks that menu is not active 
+        {
+            if (screenUI.gameObject.activeInHierarchy)
+            {
+                screenUI.gameObject.SetActive(false); //Deactivates inventory on input
+                screenUI.transform.GetChild(0).Find("Inventory").gameObject.SetActive(false);
+            }
+            else
+            {
+                screenUI.gameObject.SetActive(true); //Activates inventory on input
+                screenUI.transform.GetChild(0).Find("Inventory").gameObject.SetActive(true);
+            }
+        }
+        #endregion
         #endregion
 
         #region Handles Movment
@@ -143,11 +164,13 @@ public class FPSController : MonoBehaviour
         jumpInput.action.Enable();
         runInput.action.Enable();
         menuInput.action.Enable();
+        inventoryInput.action.Enable();
     }
     private void OnDisable()
     {
         jumpInput.action.Disable();
         runInput.action.Disable();
         menuInput.action.Disable();
+        inventoryInput.action.Disable();    
     }
 }

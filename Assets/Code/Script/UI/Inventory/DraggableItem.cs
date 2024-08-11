@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler , IDragHandler
+{
+    [SerializeField] public enum ItemType {Weapon, Material, Mon, Armor };
+    [SerializeField] public ItemType itemType;
+    [HideInInspector] public Transform parenAfterDrag;
+    [HideInInspector] public Image image;
+    private void Start()
+    {
+        image=transform.GetComponent<Image>();
+    }
+    public void OnBeginDrag(PointerEventData eventData) 
+    {
+        Debug.Log("BeginDrag");
+        parenAfterDrag = transform.parent;
+        transform.SetParent(transform.root.GetChild(0));//reparents outside grid hierarchy
+        transform.SetAsLastSibling(); //makes it always visible
+        image.raycastTarget = false;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        Debug.Log("Drag");
+        transform.position = Input.mousePosition; //Makes item follow mouse
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("endDrag");
+        transform.SetParent(parenAfterDrag); //Sets new parent
+        image.raycastTarget = true;
+    }
+
+}

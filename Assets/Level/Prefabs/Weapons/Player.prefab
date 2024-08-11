@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 5ad5da40a83b4d145985a01111ab17d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2206,6 +2206,7 @@ MonoBehaviour:
   playerFPSController: {fileID: 7231120101573173370}
   cam: {fileID: 9038402123412952323}
   hud: {fileID: 353086921150572654}
+  isMenuActive: 0
   shootInput:
     m_UseReference: 1
     m_Action:
@@ -2346,6 +2347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 7480271108611920693}
   weapon: {fileID: 751647763647738692}
+  screenUI: {fileID: 0}
   runInput:
     m_UseReference: 1
     m_Action:
@@ -2370,6 +2372,30 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -8315312269812058711, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
+  menuInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Menu Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: e4b7c99c-cc79-492a-a2a8-70b680178db8
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -8788145093507438453, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
+  inventoryInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Inventory Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f7abeaab-4849-41ce-94b4-b51413213a9c
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 8701522005887587992, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
   walkSpeed: 3
   runSpeed: 6
   jumpPower: 3
