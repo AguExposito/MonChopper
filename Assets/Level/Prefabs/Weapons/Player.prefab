@@ -2262,7 +2262,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupDmg: {fileID: 5841346387282621082, guid: 5100e8862a456a94da45e457d1080476, type: 3}
-  dmgTxtContainer: {fileID: 0}
   dmgColor: {r: 1, g: 1, b: 1, a: 1}
   weakSpotCcolor: {r: 0.77254903, g: 0.25882354, b: 0.5921569, a: 1}
   jumpForce: 5
@@ -2270,6 +2269,7 @@ MonoBehaviour:
   timeToDisable: 3
   player: {fileID: 0}
   gotWeakSpotHit: 0
+  dmgTxtContainer: {fileID: 0}
 --- !u!1 &9025466718093644850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,7 +2347,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 7480271108611920693}
   weapon: {fileID: 751647763647738692}
-  screenUI: {fileID: 0}
   runInput:
     m_UseReference: 1
     m_Action:
@@ -2407,6 +2406,7 @@ MonoBehaviour:
   rotationX: 0
   characterController: {fileID: 0}
   hudController: {fileID: 0}
+  screenUI: {fileID: 0}
 --- !u!114 &4676046728799170223
 MonoBehaviour:
   m_ObjectHideFlags: 0

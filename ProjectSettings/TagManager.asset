@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - AttackVFX
+  - dmgTxtContainer
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - UI
   - 
   - NMObstacle
-  - 
-  - 
+  - Item
+  - Enemy
   - 
   - 
   - 

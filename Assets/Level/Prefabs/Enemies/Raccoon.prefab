@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3936685915015741502}
   - component: {fileID: 7479883970600615648}
   - component: {fileID: 7892119302413701326}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6019979232940601353}
   - component: {fileID: 5694767799697984397}
   - component: {fileID: 5354685585334725651}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 125022238221763998}
   - component: {fileID: 3119879555745825888}
   - component: {fileID: 8520679773776049456}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 4692522309077529831}
   - component: {fileID: 4168203578797480954}
   - component: {fileID: 1808927219239245872}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7906241258587912271}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 5169050552489439368}
   - component: {fileID: 6689050014903801800}
   - component: {fileID: 4716385547217563708}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5416,7 +5416,7 @@ GameObject:
   - component: {fileID: 8195757325392839188}
   - component: {fileID: 3791755196483654071}
   - component: {fileID: 7056393617797824144}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5497,7 +5497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7212499392577051479}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5518,7 +5518,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8907715116827094963}
-  - {fileID: 1832330481563419458}
   m_Father: {fileID: 7897670105348132589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2727436062925911175
@@ -5530,7 +5529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1832330481563419458}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ears
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5545,14 +5544,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2727436062925911175}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.006290181, y: 0.16160056, z: 0.110479444}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0062905625, y: 0.16160062, z: -0.077020854}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3936685915015741502}
   - {fileID: 3960562184755106146}
-  m_Father: {fileID: 7212499392577051479}
+  m_Father: {fileID: 8907715116827094963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2781786977631120117
 GameObject:
@@ -5563,7 +5562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3544382859815886912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5599,7 +5598,7 @@ GameObject:
   - component: {fileID: 6002922654636854623}
   - component: {fileID: 1401839745632578158}
   - component: {fileID: 6975614696471353704}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5731,7 +5730,7 @@ GameObject:
   - component: {fileID: 5565493814085347901}
   - component: {fileID: 9164785006032252378}
   - component: {fileID: 7834216700017547006}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5861,7 +5860,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScript: {fileID: 7157279538375702250}
+  prefabDroppedItem: {fileID: 0}
+  prefabItemInventory: {fileID: 0}
+  spriteItemInventory: {fileID: 0}
   isWeak: 0
+  isDetachable: 0
+  hitPoints: 0
+  gridInventory: {fileID: 0}
 --- !u!1 &4076070192821235987
 GameObject:
   m_ObjectHideFlags: 0
@@ -5874,7 +5879,7 @@ GameObject:
   - component: {fileID: 9065945425369362836}
   - component: {fileID: 6146377073231518463}
   - component: {fileID: 6995135362518433899}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6005,7 +6010,7 @@ GameObject:
   - component: {fileID: 2008735246554401347}
   - component: {fileID: 174166107970308475}
   - component: {fileID: 2104077342905811525}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6135,7 +6140,7 @@ GameObject:
   - component: {fileID: 8765892881961457881}
   - component: {fileID: 7843386618364829448}
   - component: {fileID: 825202590922691077}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6218,7 +6223,7 @@ GameObject:
   - component: {fileID: 1883095057689459600}
   - component: {fileID: 7205435489434504352}
   - component: {fileID: 5031567956651968628}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6299,7 +6304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1470371735551810110}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6334,7 +6339,7 @@ GameObject:
   - component: {fileID: 3802133507584414008}
   - component: {fileID: 9140051344139756455}
   - component: {fileID: 6305621901345336940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6417,7 +6422,7 @@ GameObject:
   - component: {fileID: 3691528592888642629}
   - component: {fileID: 6272947425565877425}
   - component: {fileID: 6331467423952948153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6501,7 +6506,7 @@ GameObject:
   - component: {fileID: 703058223604663061}
   - component: {fileID: 3346723607390667730}
   - component: {fileID: 2644906034366640302}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6631,7 +6636,7 @@ GameObject:
   - component: {fileID: 1234918064183789326}
   - component: {fileID: 1832912078244633412}
   - component: {fileID: 8905914536555923807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6788,7 +6793,7 @@ GameObject:
   - component: {fileID: 7157279538375702250}
   - component: {fileID: 3030356575244796722}
   - component: {fileID: 2300080718407442994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Raccoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7061,7 +7066,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScript: {fileID: 7157279538375702250}
+  prefabDroppedItem: {fileID: 0}
+  prefabItemInventory: {fileID: 0}
+  spriteItemInventory: {fileID: 0}
   isWeak: 0
+  isDetachable: 0
+  hitPoints: 0
+  gridInventory: {fileID: 0}
 --- !u!1 &6917190251460403511
 GameObject:
   m_ObjectHideFlags: 0
@@ -7071,7 +7082,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 205270543494276364}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7109,7 +7120,7 @@ GameObject:
   - component: {fileID: 6050185646029631261}
   - component: {fileID: 3905782973786914789}
   - component: {fileID: 7565142652375210953}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7128,7 +7139,8 @@ Transform:
   m_LocalPosition: {x: -1.1519648e-18, y: 0, z: 0.1875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1832330481563419458}
   m_Father: {fileID: 7212499392577051479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7593339349075702891
@@ -7288,7 +7300,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScript: {fileID: 7157279538375702250}
+  prefabDroppedItem: {fileID: 272987498887931596, guid: 8fc8f7319aac8454390aa215ffd5d1fd, type: 3}
+  prefabItemInventory: {fileID: 4379854986837412848, guid: 64b0f427b79bbb34584ff952216b8cf3, type: 3}
+  spriteItemInventory: {fileID: 21300000, guid: 33e1e6147b08d6d4ab5a134dd49ed962, type: 3}
   isWeak: 1
+  isDetachable: 1
+  hitPoints: 5
+  gridInventory: {fileID: 0}
 --- !u!1 &7595333302774948685
 GameObject:
   m_ObjectHideFlags: 0
@@ -7301,7 +7319,7 @@ GameObject:
   - component: {fileID: 293496843071204374}
   - component: {fileID: 1424009609636612836}
   - component: {fileID: 7678510335142303916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7432,7 +7450,7 @@ GameObject:
   - component: {fileID: 5126698468241315393}
   - component: {fileID: 3452653860760343399}
   - component: {fileID: 6721510220436811289}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7562,7 +7580,7 @@ GameObject:
   - component: {fileID: 1859135597351507017}
   - component: {fileID: 8303672706030523988}
   - component: {fileID: 2950841121735143126}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7645,7 +7663,7 @@ GameObject:
   - component: {fileID: 260240737116225532}
   - component: {fileID: 8519234994176567633}
   - component: {fileID: 5115898839757836255}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BigSpark
   m_TagString: AttackVFX
   m_Icon: {fileID: 0}
@@ -12536,7 +12554,7 @@ GameObject:
   - component: {fileID: 6376713744684688267}
   - component: {fileID: 645419653639768152}
   - component: {fileID: 6668597378220753371}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12667,7 +12685,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScript: {fileID: 7157279538375702250}
+  prefabDroppedItem: {fileID: 0}
+  prefabItemInventory: {fileID: 0}
+  spriteItemInventory: {fileID: 0}
   isWeak: 0
+  isDetachable: 0
+  hitPoints: 0
+  gridInventory: {fileID: 0}
 --- !u!1 &8146112773825970199
 GameObject:
   m_ObjectHideFlags: 0
@@ -12679,7 +12703,7 @@ GameObject:
   - component: {fileID: 3960562184755106146}
   - component: {fileID: 2469298750978093446}
   - component: {fileID: 1394508335204187577}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12762,7 +12786,7 @@ GameObject:
   - component: {fileID: 2028806815717100589}
   - component: {fileID: 1402732286180444148}
   - component: {fileID: 3633401345263028673}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beveled_cuboid_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12847,7 +12871,7 @@ GameObject:
   - component: {fileID: 493815531847049109}
   - component: {fileID: 9076517454820088881}
   - component: {fileID: 2644695182918946475}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12978,7 +13002,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScript: {fileID: 7157279538375702250}
+  prefabDroppedItem: {fileID: 272987498887931596, guid: 8fc8f7319aac8454390aa215ffd5d1fd, type: 3}
+  prefabItemInventory: {fileID: 4379854986837412848, guid: 64b0f427b79bbb34584ff952216b8cf3, type: 3}
+  spriteItemInventory: {fileID: 21300000, guid: 9cf349269e95aa6418adf6134e5fdf9a, type: 3}
   isWeak: 0
+  isDetachable: 1
+  hitPoints: 3
+  gridInventory: {fileID: 0}
 --- !u!1001 &5645036717589417075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13042,6 +13072,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f73db6f9dd2a2d7489117f664916c5f9, type: 3}
       propertyPath: m_Name
       value: SimpleBiteMesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f73db6f9dd2a2d7489117f664916c5f9, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f73db6f9dd2a2d7489117f664916c5f9, type: 3}
       propertyPath: m_IsActive
@@ -13120,6 +13154,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f73db6f9dd2a2d7489117f664916c5f9, type: 3}
       propertyPath: m_Name
       value: SimpleBiteMesh (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f73db6f9dd2a2d7489117f664916c5f9, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f73db6f9dd2a2d7489117f664916c5f9, type: 3}
       propertyPath: m_IsActive

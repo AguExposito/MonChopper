@@ -7095,14 +7095,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 504581603444620548, guid: 0d07da04a8d94f34b8d60191cf0c619e, type: 3}
-      propertyPath: dmgTxtContainer
-      value: 
-      objectReference: {fileID: 1434920538}
-    - target: {fileID: 7231120101573173370, guid: 0d07da04a8d94f34b8d60191cf0c619e, type: 3}
-      propertyPath: screenUI
-      value: 
-      objectReference: {fileID: 1220662235}
     - target: {fileID: 9025466718093644850, guid: 0d07da04a8d94f34b8d60191cf0c619e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -10606,6 +10598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFPSController: {fileID: 69566566}
+  inventory: {fileID: 1801514197}
 --- !u!1001 &1232279359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12476,7 +12469,7 @@ GameObject:
   - component: {fileID: 1434920539}
   m_Layer: 5
   m_Name: dmgTxtContainer
-  m_TagString: Untagged
+  m_TagString: dmgTxtContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

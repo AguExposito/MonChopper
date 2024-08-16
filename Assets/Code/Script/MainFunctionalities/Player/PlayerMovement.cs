@@ -10,7 +10,7 @@ public class FPSController : MonoBehaviour
     [Header("References")]
     [SerializeField] Camera playerCamera;
     [SerializeField] public Weapon weapon;
-    [SerializeField] MenuController screenUI;
+    
 
     [Space]
     [Header("Inputs")]
@@ -41,9 +41,11 @@ public class FPSController : MonoBehaviour
     [SerializeField] float rotationX = 0;
     [SerializeField] CharacterController characterController;
     [SerializeField] HudController hudController;
+    [SerializeField] MenuController screenUI;
 
     void Start()
     {
+        screenUI=FindFirstObjectByType<MenuController>();
         hudController = transform.Find("CanvasHUD").GetComponent<HudController>();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;

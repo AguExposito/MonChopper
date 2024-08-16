@@ -5,9 +5,11 @@ using UnityEngine;
 public class MenuController : MonoBehaviour
 {
     [SerializeField] public FPSController playerFPSController;
+    [SerializeField] public GameObject inventory;
     float lookSpeed;
-    private void Update()
+    private void Start()
     {
+        gameObject.SetActive(false);
     }
     private void OnEnable()
     {

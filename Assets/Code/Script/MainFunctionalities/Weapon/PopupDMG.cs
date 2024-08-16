@@ -10,7 +10,6 @@ public class PopupDMG : MonoBehaviour
 {
     [Header("References")]    
     [SerializeField] private GameObject popupDmg;
-    [SerializeField] private GameObject dmgTxtContainer;
 
     [Space]
     [Header("Variables")]
@@ -24,10 +23,12 @@ public class PopupDMG : MonoBehaviour
     [Header("Read Only Variables"), Unity.Collections.ReadOnly]
     [SerializeField] private GameObject player;
     [SerializeField] public bool gotWeakSpotHit = false;
+    [SerializeField] private GameObject dmgTxtContainer;
     // Start is called before the first frame update
     void Start()
     {
         player = transform.parent.parent.gameObject;
+        dmgTxtContainer = GameObject.FindWithTag("dmgTxtContainer");
     }
 
     // Update is called once per frame

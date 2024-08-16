@@ -17,15 +17,16 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private int equippedSpaceOccupied;
     [Space]
     [Header("Read Only Variables"), ReadOnly]
-    [SerializeField] private GameObject gridInventory;
+    [SerializeField] public GameObject gridInventory;
     [SerializeField] private GameObject gridEquipped;
     [SerializeField] private GameObject gridArmor;
     [SerializeField] private GameObject gridMons;
     [SerializeField] private TextMeshProUGUI inventoryTxt;
     [SerializeField] private TextMeshProUGUI equippedTxt;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        gameObject.SetActive(false);
         //Get grid references
         gridInventory = transform.Find("GridInventory").gameObject;
         gridEquipped = transform.Find("GridEquipped").gameObject;
