@@ -18,7 +18,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler ,
     {
         Debug.Log("BeginDrag");
         parenAfterDrag = transform.parent;
-        transform.SetParent(transform.root.GetChild(0));//reparents outside grid hierarchy
+        transform.SetParent(transform.root.GetChild(transform.root.childCount-1).GetChild(0));//reparents outside grid hierarchy, canvasui is always last sibling
         transform.SetAsLastSibling(); //makes it always visible
         image.raycastTarget = false;
     }
