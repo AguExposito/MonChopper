@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler , IDragHandler
 {
-    [SerializeField] public enum ItemType {Weapon, Material, Mon, Armor };
-    [SerializeField] public ItemType itemType;
+    
     [HideInInspector] public Transform parenAfterDrag;
     [HideInInspector] public Image image;
     private void Start()

@@ -5866,7 +5866,6 @@ MonoBehaviour:
   isWeak: 0
   isDetachable: 0
   hitPoints: 0
-  gridInventory: {fileID: 0}
 --- !u!1 &4076070192821235987
 GameObject:
   m_ObjectHideFlags: 0
@@ -7072,7 +7071,6 @@ MonoBehaviour:
   isWeak: 0
   isDetachable: 0
   hitPoints: 0
-  gridInventory: {fileID: 0}
 --- !u!1 &6917190251460403511
 GameObject:
   m_ObjectHideFlags: 0
@@ -7302,11 +7300,10 @@ MonoBehaviour:
   enemyScript: {fileID: 7157279538375702250}
   prefabDroppedItem: {fileID: 272987498887931596, guid: 8fc8f7319aac8454390aa215ffd5d1fd, type: 3}
   prefabItemInventory: {fileID: 4379854986837412848, guid: 64b0f427b79bbb34584ff952216b8cf3, type: 3}
-  spriteItemInventory: {fileID: 21300000, guid: 33e1e6147b08d6d4ab5a134dd49ed962, type: 3}
+  spriteItemInventory: {fileID: 21300000, guid: 6425173d544f40a4b8f2e1232cbe67bd, type: 3}
   isWeak: 1
   isDetachable: 1
   hitPoints: 5
-  gridInventory: {fileID: 0}
 --- !u!1 &7595333302774948685
 GameObject:
   m_ObjectHideFlags: 0
@@ -12691,7 +12688,6 @@ MonoBehaviour:
   isWeak: 0
   isDetachable: 0
   hitPoints: 0
-  gridInventory: {fileID: 0}
 --- !u!1 &8146112773825970199
 GameObject:
   m_ObjectHideFlags: 0
@@ -13004,11 +13000,10 @@ MonoBehaviour:
   enemyScript: {fileID: 7157279538375702250}
   prefabDroppedItem: {fileID: 272987498887931596, guid: 8fc8f7319aac8454390aa215ffd5d1fd, type: 3}
   prefabItemInventory: {fileID: 4379854986837412848, guid: 64b0f427b79bbb34584ff952216b8cf3, type: 3}
-  spriteItemInventory: {fileID: 21300000, guid: 9cf349269e95aa6418adf6134e5fdf9a, type: 3}
+  spriteItemInventory: {fileID: 21300000, guid: 8eacdb9305d28eb4c8c98c0bda988e73, type: 3}
   isWeak: 0
   isDetachable: 1
   hitPoints: 3
-  gridInventory: {fileID: 0}
 --- !u!1001 &5645036717589417075
 PrefabInstance:
   m_ObjectHideFlags: 0

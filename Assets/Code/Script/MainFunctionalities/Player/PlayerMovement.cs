@@ -45,7 +45,7 @@ public class FPSController : MonoBehaviour
 
     void Start()
     {
-        screenUI=FindFirstObjectByType<MenuController>();
+        screenUI = transform.Find("ScreenUI").gameObject.GetComponent<MenuController>();
         hudController = transform.Find("CanvasHUD").GetComponent<HudController>();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;

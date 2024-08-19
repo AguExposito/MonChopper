@@ -23,8 +23,10 @@ public class HudController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = transform.parent.GetComponent<Player>();        
-        UpdateHudValues();
+        player = transform.parent.GetComponent<Player>();
+        if (weapon.transform.childCount!=0) {
+            UpdateHudValues();
+        }
     }
 
     // Update is called once per frame

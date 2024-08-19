@@ -6,6 +6,7 @@ using UnityEditor.Animations;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class Weapon : MonoBehaviour {
 
@@ -32,19 +33,25 @@ public class Weapon : MonoBehaviour {
     [SerializeField] WeaponData[] weaponDataScriptObj;
     private void Awake() {
         weaponDataScriptObj=Resources.LoadAll<WeaponData>("ScriptableObjects/Weapons");
-        AssignWeaponVariables();
+        if (gameObject.transform.childCount != 0)
+        {
+            AssignWeaponVariables();
+        }
     }
-    public void AssignWeaponVariables() {
+    public void AssignWeaponVariables()  //Assigns most of weapon's (READONLY) variables
+    {
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeInHierarchy) //Checks some weapon is active
             {
                 foreach (WeaponData data in weaponDataScriptObj)
                 {
-                    weaponData = transform.GetChild(i).name == data.name ? data : null;
+                    weaponData = transform.GetChild(i).name == data.name || transform.GetChild(i).name == data.name+"(Clone)" ? data : null;
                     if (weaponData != null) { break; }
                 }
                 shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>()!=null? transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>():null;
+                
+                //Sets animator variables
                 weaponAnimator = transform.GetChild(i).GetComponent<Animator>();
                 weaponAnimator.SetFloat("ReloadSpeed", 1 / weaponData.reloadTime);
                 weaponAnimator.SetFloat("ShootSpeed", weaponData.fireRate);
@@ -52,6 +59,7 @@ public class Weapon : MonoBehaviour {
                 break;
             }
         }
+        //hud.UpdateHudValues();
     }
     private void Start()
     {
@@ -79,7 +87,7 @@ public class Weapon : MonoBehaviour {
         #endregion
 
         //Shoot Delay
-        if (timeSinceLastShot < 1f / (weaponData.fireRate)) {
+        if (timeSinceLastShot < 1f / (weaponData.fireRate) && gameObject.transform.childCount != 0) {
             timeSinceLastShot += Time.deltaTime;
         }
 
@@ -104,8 +112,8 @@ public class Weapon : MonoBehaviour {
         AnimationClip[] animClips = weaponAnimator.runtimeAnimatorController.animationClips;
         AnimationClip reloadClip=null;
         foreach (AnimationClip clip in animClips)
-        {
-            if (clip.name == "Reload"+weaponAnimator.gameObject.name) { reloadClip = clip; }
+        {            
+            if (clip.name.StartsWith("Reload")) { reloadClip = clip;}
         }
 
         yield return new WaitForSeconds(reloadClip.length * weaponData.reloadTime);
@@ -185,6 +193,7 @@ public class Weapon : MonoBehaviour {
         }
         Invoke("DisableLight",0.1f);
     }
+    //Light when shooting
     void DisableLight() {
         for (int i = 0; i < weaponAnimator.transform.childCount; i++)
         {
@@ -234,6 +243,7 @@ public class Weapon : MonoBehaviour {
     }
     #endregion
 
+    //Activates-deactivates inputs
     private void OnEnable()
     {
         reloadInput.action.Enable();

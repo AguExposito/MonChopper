@@ -27,7 +27,7 @@ MonoBehaviour:
   aimTime: 1
   dispersionSight: 0.5
   aimFOV: 80
-  currentAmmo: 4
+  currentAmmo: 2
   ammoAmount: 9822
   magSize: 4
   reloadTime: 3

@@ -23,29 +23,28 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {            
             GameObject dropped = eventData.pointerDrag;
             DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
+            ItemFunctionsUI itemFunctionsUI = dropped.GetComponent<ItemFunctionsUI>();            
 
-            
-
-            if (CanBeReparented(draggableItem)) {
+            if (CanBeReparented(itemFunctionsUI)) {
                 draggableItem.parenAfterDrag = transform;
             }
         }
     }
-    private bool CanBeReparented(DraggableItem dgi) {
-        switch (dgi.itemType) {
-            case DraggableItem.ItemType.Weapon: {
+    private bool CanBeReparented(ItemFunctionsUI ifUI) {
+        switch (ifUI.itemType) {
+            case ItemFunctionsUI.ItemType.Weapon: {
                     if (gridType == GridType.Equippable || gridType == GridType.Inventory) { return true; }
                     else { return false; }
                 } break;
-            case DraggableItem.ItemType.Material: {
+            case ItemFunctionsUI.ItemType.Material: {
                     if (gridType == GridType.Equippable || gridType == GridType.Inventory) { return true; }
                     else { return false; }
                 } break;
-            case DraggableItem.ItemType.Armor: {
+            case ItemFunctionsUI.ItemType.Armor: {
                     if (gridType == GridType.Armor || gridType == GridType.Inventory) { return true; }
                     else { return false; }
                 } break;
-            case DraggableItem.ItemType.Mon: {
+            case ItemFunctionsUI.ItemType.Mon: {
                     if (gridType == GridType.Mon || gridType == GridType.Inventory) { return true; }
                     else { return false; }
                 } break;
