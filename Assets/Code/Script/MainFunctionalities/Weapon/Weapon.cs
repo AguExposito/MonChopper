@@ -66,41 +66,51 @@ public class Weapon : MonoBehaviour {
         popupDmg=GetComponent<PopupDMG>();
     }
 
-    private void Update() {
+    private void Update()
+    {
         #region Handles Inputs
-        //when shoot input
-        if (shootInput.action.inProgress) { 
-            Shoot();
-        }//when aim input
-        if (aimInput.action.inProgress) { 
-            Aim();            
-        }
-        else
+        if (weaponData != null)
         {
-            StopAim();
-        }
-        //when reload input
-        if (reloadInput.action.inProgress && weaponData.currentAmmo!=weaponData.magSize)
-        {
-            StartReload();
-        }
-        #endregion
+            //when shoot input
+            if (shootInput.action.inProgress)
+            {
+                Shoot();
+            }//when aim input
+            if (aimInput.action.inProgress)
+            {
+                Aim();
+            }
+            else
+            {
+                StopAim();
+            }
+            //when reload input
+            if (reloadInput.action.inProgress && weaponData.currentAmmo != weaponData.magSize)
+            {
+                StartReload();
+            }
+            #endregion
 
-        //Shoot Delay
-        if (timeSinceLastShot < 1f / (weaponData.fireRate) && gameObject.transform.childCount != 0) {
-            timeSinceLastShot += Time.deltaTime;
-        }
+            //Shoot Delay
+            if (timeSinceLastShot < 1f / (weaponData.fireRate) && gameObject.transform.childCount != 0)
+            {
+                timeSinceLastShot += Time.deltaTime;
+            }
 
-        //debug methods
-        Debug.DrawRay(cam.position, cam.forward * weaponData.maxDistance);
+            //debug methods
+            Debug.DrawRay(cam.position, cam.forward * weaponData.maxDistance);
+        }
+    
     }
 
     #region Reload Methods
     public void StartReload()
     {
-        if (!weaponData.reloading && this.gameObject.activeSelf && weaponData.ammoAmount != 0)
-        {
-            StartCoroutine(Reload());
+        if (weaponData != null) {
+            if (!weaponData.reloading && this.gameObject.activeSelf && weaponData.ammoAmount != 0)
+            {
+                StartCoroutine(Reload());
+            }
         }
     }
 
@@ -140,29 +150,31 @@ public class Weapon : MonoBehaviour {
 
     private void Shoot()
     {
-        if (weaponData.currentAmmo > 0)
-        {
-            if (CanShoot()) //Chequea condición para disparar
+        if (weaponData!=null) {
+            if (weaponData.currentAmmo > 0)
             {
-                if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, weaponData.maxDistance))
+                if (CanShoot()) //Chequea condición para disparar
                 {
-
-                    IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
-                    float distance = Vector3.Distance(transform.position, hitInfo.point);
-                    //DMG feedback
-                    if(damageable != null && !hitInfo.transform.GetComponent<EnemyPart>().enemyScript.isDead)//Checks if hits something and is not dead
+                    if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, weaponData.maxDistance))
                     {
-                        popupDmg.gotWeakSpotHit = hitInfo.transform.GetComponent<EnemyPart>().isWeak;//Checks if its a weak spot for critical dmg
-                        float damage = popupDmg.gotWeakSpotHit? CalculateDmg(distance)*weaponData.bulletCritMultiplier : CalculateDmg(distance); //if its critial applies critical modifier
-                        popupDmg.PopupDmg(damage, hitInfo.point); //Popsup dmg text
-                    }
-                    //Appl DMG
-                    damageable?.TakeDamage(CalculateDmg(distance), weaponData);
-                }
 
-                weaponData.currentAmmo -= weaponData.bulletAmount;
-                timeSinceLastShot = 0;
-                OnGunShot();
+                        IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
+                        float distance = Vector3.Distance(transform.position, hitInfo.point);
+                        //DMG feedback
+                        if (damageable != null && !hitInfo.transform.GetComponent<EnemyPart>().enemyScript.isDead)//Checks if hits something and is not dead
+                        {
+                            popupDmg.gotWeakSpotHit = hitInfo.transform.GetComponent<EnemyPart>().isWeak;//Checks if its a weak spot for critical dmg
+                            float damage = popupDmg.gotWeakSpotHit ? CalculateDmg(distance) * weaponData.bulletCritMultiplier : CalculateDmg(distance); //if its critial applies critical modifier
+                            popupDmg.PopupDmg(damage, hitInfo.point); //Popsup dmg text
+                        }
+                        //Appl DMG
+                        damageable?.TakeDamage(CalculateDmg(distance), weaponData);
+                    }
+
+                    weaponData.currentAmmo -= weaponData.bulletAmount;
+                    timeSinceLastShot = 0;
+                    OnGunShot();
+                }
             }
         }
     }

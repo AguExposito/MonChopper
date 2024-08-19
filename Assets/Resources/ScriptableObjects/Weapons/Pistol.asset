@@ -27,9 +27,9 @@ MonoBehaviour:
   aimTime: 1
   dispersionSight: 0
   aimFOV: 70
-  currentAmmo: 0
-  ammoAmount: 9742
+  currentAmmo: 8
+  ammoAmount: 9722
   magSize: 8
   reloadTime: 2
-  reloading: 1
+  reloading: 0
   explosionForce: 20

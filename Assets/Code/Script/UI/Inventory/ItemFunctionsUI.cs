@@ -14,7 +14,7 @@ public class ItemFunctionsUI : MonoBehaviour
     private void Awake()
     {
         weapon = GameObject.FindFirstObjectByType<Weapon>();
-        InstantiateWeapon();
+       // InstantiateWeapon();
         
     }
     // Update is called once per frame

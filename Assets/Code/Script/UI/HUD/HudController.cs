@@ -35,15 +35,19 @@ public class HudController : MonoBehaviour
       
     }
 
-    public void UpdateHudValues() {
+    public void UpdateHudValues()
+    {
         healthTxt.text = player.health + "/" + player.healthMax;
         armorTxt.text = player.armor + "/" + player.armorMax;
         xpTxt.text = player.xp + "/" + player.xpMax;
         levelTxt.text = player.level.ToString();
-        ammoTxt.text = weapon.weaponData.currentAmmo + "/" + weapon.weaponData.ammoAmount;
 
         healthTxt.transform.parent.GetComponent<UnityEngine.UI.Image>().fillAmount = player.health / player.healthMax;
         armorTxt.transform.parent.GetComponent<UnityEngine.UI.Image>().fillAmount = player.armor / player.armorMax;
         levelTxt.transform.parent.GetComponent<UnityEngine.UI.Image>().fillAmount = player.xp / player.xpMax;
+        if (weapon.weaponData != null)
+        {
+            ammoTxt.text = weapon.weaponData.currentAmmo + "/" + weapon.weaponData.ammoAmount;
+        }
     }
 }
