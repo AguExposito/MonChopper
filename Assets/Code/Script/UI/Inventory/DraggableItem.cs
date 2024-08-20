@@ -9,13 +9,15 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler ,
     
     [HideInInspector] public Transform parenAfterDrag;
     [HideInInspector] public Image image;
+    [HideInInspector] FPSController player;
     private void Start()
     {
         image=transform.GetComponent<Image>();
+        player=transform.root.GetComponent<FPSController>();
     }
     public void OnBeginDrag(PointerEventData eventData) 
     {
-        Debug.Log("BeginDrag");
+        player.canOpenUI = true;
         parenAfterDrag = transform.parent;
         transform.SetParent(transform.root.GetChild(transform.root.childCount-1).GetChild(0));//reparents outside grid hierarchy, canvasui is always last sibling
         transform.SetAsLastSibling(); //makes it always visible
@@ -24,13 +26,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler ,
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag");
         transform.position = Input.mousePosition; //Makes item follow mouse
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("endDrag");
+        player.canOpenUI = false;
         transform.SetParent(parenAfterDrag); //Sets new parent
         image.raycastTarget = true;
     }

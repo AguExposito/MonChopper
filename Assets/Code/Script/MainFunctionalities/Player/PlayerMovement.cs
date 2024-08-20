@@ -34,6 +34,7 @@ public class FPSController : MonoBehaviour
     [Space]
     [Header("State Variables")]
     [SerializeField] bool canMove = true;
+    [SerializeField] public bool canOpenUI = true;
 
     [Space]
     [Header("Read Only Variables"), ReadOnly]
@@ -57,7 +58,7 @@ public class FPSController : MonoBehaviour
         #region Handles UI events
             #region Menu
         if (menuInput.action.WasPerformedThisFrame()) {
-            if (screenUI.gameObject.activeInHierarchy) 
+            if (screenUI.gameObject.activeInHierarchy && !canOpenUI) 
             {
                 screenUI.gameObject.SetActive(false); //Deactivates menu on input
                 screenUI.transform.GetChild(0).Find("Menu").gameObject.SetActive(false);
@@ -73,7 +74,7 @@ public class FPSController : MonoBehaviour
             #region Inventory
         if (inventoryInput.action.WasPerformedThisFrame() && !screenUI.transform.GetChild(0).Find("Menu").gameObject.activeInHierarchy) //Checks that menu is not active 
         {
-            if (screenUI.gameObject.activeInHierarchy)
+            if (screenUI.gameObject.activeInHierarchy && !canOpenUI)
             {
                 screenUI.gameObject.SetActive(false); //Deactivates inventory on input
                 screenUI.transform.GetChild(0).Find("Inventory").gameObject.SetActive(false);
