@@ -131,22 +131,28 @@ public class FPSController : MonoBehaviour
         #endregion
 
         #region Handles Weapon Change
-        if ((Input.mouseScrollDelta.y==1 || Input.mouseScrollDelta.y == -1) && !weapon.weaponData.reloading && !weapon.weaponData.aiming) {
-            for (int i = 0; i < weapon.transform.childCount; i++)
+        if (weapon.weaponData != null)
+        {
+            if ((Input.mouseScrollDelta.y == 1 || Input.mouseScrollDelta.y == -1) && !weapon.weaponData.reloading && !weapon.weaponData.aiming)
             {
-                GameObject equipedWeapon = weapon.transform.GetChild(i).gameObject;
-                if (equipedWeapon.activeInHierarchy) { 
-                    equipedWeapon.SetActive(false);
-                    if (i == weapon.transform.childCount - 1)
+                for (int i = 0; i < weapon.transform.childCount; i++)
+                {
+                    GameObject equipedWeapon = weapon.transform.GetChild(i).gameObject;
+                    if (equipedWeapon.activeInHierarchy)
                     {
-                        weapon.transform.GetChild(0).gameObject.SetActive(true);
-                        OnWeaponChange();
+                        equipedWeapon.SetActive(false);
+                        if (i == weapon.transform.childCount - 1)
+                        {
+                            weapon.transform.GetChild(0).gameObject.SetActive(true);
+                            OnWeaponChange();
+                        }
+                        else
+                        {
+                            weapon.transform.GetChild(i + 1).gameObject.SetActive(true);
+                            OnWeaponChange();
+                        }
+                        break;
                     }
-                    else {
-                        weapon.transform.GetChild(i+1).gameObject.SetActive(true);
-                        OnWeaponChange();
-                    }
-                    break;
                 }
             }
         }

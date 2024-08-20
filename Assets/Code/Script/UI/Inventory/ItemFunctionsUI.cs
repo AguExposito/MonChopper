@@ -10,11 +10,12 @@ public class ItemFunctionsUI : MonoBehaviour
     [SerializeField] public Weapon weapon;
     [SerializeField] public GameObject prefabDropItem;
     [SerializeField] public GameObject prefabEquippedItem;
+    [SerializeField] public GameObject weaponItem;
     // Start is called before the first frame update
     private void Awake()
     {
         weapon = GameObject.FindFirstObjectByType<Weapon>();
-       // InstantiateWeapon();
+        InstantiateWeapon();
         
     }
     // Update is called once per frame
@@ -24,15 +25,29 @@ public class ItemFunctionsUI : MonoBehaviour
     }
 
     public void InstantiateWeapon() {
-        GameObject weaponItem=Instantiate(prefabEquippedItem,weapon.transform);
-        
-        if (weapon.transform.childCount != 1) //Si no es el único hijo, desactiva la nueva arma
+        if (CheckWeaponExistingChild())
         {
-            weaponItem.SetActive(false);
+            weaponItem = Instantiate(prefabEquippedItem, weapon.transform);
+
+            if (weapon.transform.childCount != 1) //Si no es el único hijo, desactiva la nueva arma
+            {
+                weaponItem.SetActive(false);
+            }
+            else
+            {
+                weaponItem.SetActive(true);
+            }
         }
-        else {
-            weaponItem.SetActive(true);
+    }
+
+    public bool CheckWeaponExistingChild() //Sirve para no instanciar más de una vez la misma arma
+    {
+        for (int i = 0; i < weapon.transform.childCount; i++)
+        {
+            if (weapon.transform.GetChild(i).name == prefabEquippedItem.name + "(Clone)") {
+                return false;
+            }
         }
-        
+        return true;
     }
 }

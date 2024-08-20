@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,17 +18,44 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
     public void OnDrop(PointerEventData eventData)
     {
-        
-        if (transform.childCount == 0)
-        {            
-            GameObject dropped = eventData.pointerDrag;
-            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
-            ItemFunctionsUI itemFunctionsUI = dropped.GetComponent<ItemFunctionsUI>();            
 
-            if (CanBeReparented(itemFunctionsUI)) {
+        if (transform.childCount == 0)
+        {
+            GameObject dropped = eventData.pointerDrag; //Dragged gameobject
+            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
+            ItemFunctionsUI itemFunctionsUI = dropped.GetComponent<ItemFunctionsUI>();
+
+            if (CanBeReparented(itemFunctionsUI))
+            {
                 draggableItem.parenAfterDrag = transform;
             }
+
+            if (gridType == GridType.Equippable) //Instancia weapon cunado la equipas
+            {
+                itemFunctionsUI.InstantiateWeapon();
+            }
+            else //Destruye weapon cuando lo desequipas
+            {
+                if (itemFunctionsUI.weapon.transform.childCount != 1)
+                {
+                    for (int i = 0; i < itemFunctionsUI.weapon.transform.childCount; i++) //Pasa por todos los hijos
+                    {
+                        if (itemFunctionsUI.weapon.transform.GetChild(i).gameObject == itemFunctionsUI.weaponItem && itemFunctionsUI.weaponItem.activeInHierarchy) //chequea que sea el mismo game object y que esté activo para prevenir bugs
+                        {
+                            if (i < itemFunctionsUI.weapon.transform.childCount - 1) //si no es el último hijo
+                            {
+                                itemFunctionsUI.weapon.transform.GetChild(i + 1).gameObject.SetActive(true); Debug.Log("No es el último: "+(i+1));
+                            }
+                            else { itemFunctionsUI.weapon.transform.GetChild(i - 1).gameObject.SetActive(true); Debug.Log("Es el último: "+(i - 1)); }
+                            break;
+                        }
+                    }
+                }
+                Destroy(itemFunctionsUI.weaponItem);        
+                itemFunctionsUI.weapon.AssignWeaponVariables();
+            }
         }
+
     }
     private bool CanBeReparented(ItemFunctionsUI ifUI) {
         switch (ifUI.itemType) {
