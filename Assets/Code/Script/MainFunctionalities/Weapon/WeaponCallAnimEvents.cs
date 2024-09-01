@@ -25,6 +25,5 @@ public class WeaponCallAnimEvents : MonoBehaviour
 
         // Asegurar que el FOV se establece exactamente en el valor objetivo al final
         transform.parent.parent.GetComponent<Camera>().fieldOfView = targetFOV;
-
     }
 }

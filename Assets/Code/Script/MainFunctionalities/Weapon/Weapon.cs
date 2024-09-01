@@ -220,12 +220,10 @@ public class Weapon : MonoBehaviour {
 
     #region Aim Methods
     private void Aim() {        
-        if (!weaponAnimator.GetBool("Aim")&&!weaponData.reloading && weaponData.aiming == false) //Checks animation bool to active correctly 
+        if (!weaponAnimator.GetBool("Aim") && !weaponData.reloading && weaponData.aiming == false) //Checks animation bool to active correctly 
         {
             weaponAnimator.SetBool("Aim", true);
-            playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed / 2, playerFPSController.runSpeed / 2, playerFPSController.jumpPower);
-            weaponData.aiming=true;
-            //StartCoroutine(ChangeCameraFov(initialCameraFOV,weaponData.aimFOV, (1 / weaponData.aimTime) / 2)); //Divided by 2 because aim anim is only 30s
+            StartCoroutine(SetAiming(true));
         }
     }
 
@@ -233,25 +231,25 @@ public class Weapon : MonoBehaviour {
         if (weaponAnimator != null && weaponAnimator.GetBool("Aim") && !weaponData.reloading && weaponData.aiming == true)
         {
             weaponAnimator.SetBool("Aim", false);
-            playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed * 2, playerFPSController.runSpeed * 2, playerFPSController.jumpPower);
-            weaponData.aiming = false;
-            //StartCoroutine(ChangeCameraFov(weaponData.aimFOV,initialCameraFOV, (1 / weaponData.aimTime) / 2)); //Divided by 2 because aim anim is only 30s
+            StartCoroutine(SetAiming(false));
         }
     }
-    private IEnumerator ChangeCameraFov(float iniFovVal, float targetFovValue, float time)
-    {
-        float t = 0f;
-        yield return new WaitForSeconds(0.5f);
-        while (t < time)
+    IEnumerator SetAiming(bool state) {
+        AnimationClip[] animClips = weaponAnimator.runtimeAnimatorController.animationClips;
+        AnimationClip aimClip = null;
+        foreach (AnimationClip clip in animClips)
         {
-            transform.parent.GetComponent<Camera>().fieldOfView = Mathf.Lerp(iniFovVal, targetFovValue, t / time);
-            t += Time.deltaTime;
-            yield return null;
+            if (clip.name.StartsWith("Aim")) { aimClip = clip; }
         }
-
-        // Asegurar que el FOV se establece exactamente en el valor objetivo al final
-        transform.parent.GetComponent<Camera>().fieldOfView = targetFovValue;
-        
+        yield return new WaitForSeconds(aimClip.length);
+        weaponData.aiming = state;
+        if (!state)
+        {
+            playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed * 2, playerFPSController.runSpeed * 2, playerFPSController.jumpPower);
+        }
+        else {
+            playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed / 2, playerFPSController.runSpeed / 2, playerFPSController.jumpPower);
+        }
     }
     #endregion
 
