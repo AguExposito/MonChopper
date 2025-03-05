@@ -23,12 +23,13 @@ MonoBehaviour:
   bulletDmgMax: 75
   bulletCritMultiplier: 2
   bulletAmount: 1
+  canAim: 1
   aiming: 0
   aimTime: 1
   dispersionSight: 0
   aimFOV: 70
   currentAmmo: 8
-  ammoAmount: 9742
+  ammoAmount: 9691
   magSize: 8
   reloadTime: 2
   reloading: 0

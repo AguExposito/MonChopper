@@ -23,6 +23,7 @@ MonoBehaviour:
   bulletDmgMax: 200
   bulletCritMultiplier: 2
   bulletAmount: 2
+  canAim: 1
   aiming: 0
   aimTime: 1
   dispersionSight: 0.5

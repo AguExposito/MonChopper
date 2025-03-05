@@ -27,6 +27,7 @@ public class WeaponData : ScriptableObject
 
     [Space]
     [Header("Aim")]
+    public bool canAim;
     public bool aiming;
     public float aimTime;
     public float dispersionSight;

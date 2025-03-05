@@ -65,7 +65,7 @@ public class Weapon : MonoBehaviour {
         if (shootInput.action.inProgress) { 
             Shoot();
         }//when aim input
-        if (aimInput.action.inProgress) { 
+        if (aimInput.action.inProgress && weaponData.canAim) { 
             Aim();            
         }
         else
@@ -75,6 +75,7 @@ public class Weapon : MonoBehaviour {
         //when reload input
         if (reloadInput.action.inProgress && weaponData.currentAmmo!=weaponData.magSize)
         {
+            StopAim();
             StartReload();
         }
         #endregion
@@ -202,36 +203,17 @@ public class Weapon : MonoBehaviour {
     private void Aim() {        
         if (!weaponAnimator.GetBool("Aim")&&!weaponData.reloading && weaponData.aiming == false) //Checks animation bool to active correctly 
         {
+            //weaponData.aiming = true; ---> POR SIMPLEZA SE REALIZA EN SCRIPT: WeaponCallEvents
             weaponAnimator.SetBool("Aim", true);
-            playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed / 2, playerFPSController.runSpeed / 2, playerFPSController.jumpPower);
-            weaponData.aiming=true;
-            //StartCoroutine(ChangeCameraFov(initialCameraFOV,weaponData.aimFOV, (1 / weaponData.aimTime) / 2)); //Divided by 2 because aim anim is only 30s
         }
     }
 
     private void StopAim() {
         if (weaponAnimator != null && weaponAnimator.GetBool("Aim") && !weaponData.reloading && weaponData.aiming == true)
         {
-            weaponAnimator.SetBool("Aim", false);
-            playerFPSController.ChangeMovementVariables(playerFPSController.walkSpeed * 2, playerFPSController.runSpeed * 2, playerFPSController.jumpPower);
-            weaponData.aiming = false;
-            //StartCoroutine(ChangeCameraFov(weaponData.aimFOV,initialCameraFOV, (1 / weaponData.aimTime) / 2)); //Divided by 2 because aim anim is only 30s
+            //weaponData.aiming = false; ---> POR SIMPLEZA SE REALIZA EN SCRIPT: WeaponCallEvents
+            weaponAnimator.SetBool("Aim", false);            
         }
-    }
-    private IEnumerator ChangeCameraFov(float iniFovVal, float targetFovValue, float time)
-    {
-        float t = 0f;
-        yield return new WaitForSeconds(0.5f);
-        while (t < time)
-        {
-            transform.parent.GetComponent<Camera>().fieldOfView = Mathf.Lerp(iniFovVal, targetFovValue, t / time);
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        // Asegurar que el FOV se establece exactamente en el valor objetivo al final
-        transform.parent.GetComponent<Camera>().fieldOfView = targetFovValue;
-        
     }
     #endregion
 

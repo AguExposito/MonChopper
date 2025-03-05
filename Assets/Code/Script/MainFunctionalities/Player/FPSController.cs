@@ -23,10 +23,11 @@ public class FPSController : MonoBehaviour
 
     [Space]
     [Header("Movement Variables")]
-    public float walkSpeed;
-    public float runSpeed;
-    public float jumpPower;
+    [SerializeField] public float walkSpeed;
+    [SerializeField] public float runSpeed;
+    [SerializeField] public float jumpPower;
     [SerializeField] float gravity;
+    [SerializeField] public bool alteredMovement;
 
     [Space]
     [Header("Camera Variables")]
@@ -166,10 +167,11 @@ public class FPSController : MonoBehaviour
         
         #endregion
     }
-    public void ChangeMovementVariables(float walkSpeed, float runSpeed, float jumpPower) { 
+    public void ChangeMovementVariables(float walkSpeed, float runSpeed, float jumpPower, bool alteredMovement) { 
         this.walkSpeed = walkSpeed;
         this.runSpeed = runSpeed;
         this.jumpPower = jumpPower;
+        this.alteredMovement = alteredMovement;
     }
     void OnWeaponChange() {
         weapon.AssignWeaponVariables();

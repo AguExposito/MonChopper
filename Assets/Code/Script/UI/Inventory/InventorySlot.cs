@@ -36,19 +36,19 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             case DraggableItem.ItemType.Weapon: {
                     if (gridType == GridType.Equippable || gridType == GridType.Inventory) { return true; }
                     else { return false; }
-                } break;
+                }
             case DraggableItem.ItemType.Material: {
                     if (gridType == GridType.Equippable || gridType == GridType.Inventory) { return true; }
                     else { return false; }
-                } break;
+                }
             case DraggableItem.ItemType.Armor: {
                     if (gridType == GridType.Armor || gridType == GridType.Inventory) { return true; }
                     else { return false; }
-                } break;
+                } 
             case DraggableItem.ItemType.Mon: {
                     if (gridType == GridType.Mon || gridType == GridType.Inventory) { return true; }
                     else { return false; }
-                } break;
+                } 
             default: return false;
         }
     }
