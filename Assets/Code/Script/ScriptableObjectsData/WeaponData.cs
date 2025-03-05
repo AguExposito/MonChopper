@@ -45,5 +45,5 @@ public class WeaponData : ScriptableObject
 
     [Header("Sever")]
     public bool canSever;
-    public float severDmg;
+    public int severDmg;
 }

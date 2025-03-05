@@ -48,7 +48,7 @@ public class EnemyPart : MonoBehaviour, IDamageable
         {
             if (hitPoints > 0)
             {
-                hitPoints--;
+                hitPoints-=(int)damage;
             }
             else 
             {

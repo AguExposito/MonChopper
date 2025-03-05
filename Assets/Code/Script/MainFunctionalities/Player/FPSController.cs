@@ -53,7 +53,7 @@ public class FPSController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        screenUI = FindAnyObjectByType<MenuController>();
+        screenUI = transform.GetComponentInChildren<MenuController>(true);
         for (int i = 0; weapon.transform.childCount > 0; i++)
         {
             if (weapon.transform.GetChild(i).gameObject.activeInHierarchy) { 
