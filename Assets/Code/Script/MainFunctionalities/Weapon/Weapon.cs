@@ -154,8 +154,9 @@ public class Weapon : MonoBehaviour {
                         damageable?.TakeDamage(CalculateDmg(distance), weaponData);
                     }
                     else //If dead show sever popupdmg
-                    { 
-                        if(damageable != null && weaponData.canSever && hitInfo.transform.GetComponent<EnemyPart>().isDetachable) {
+                    {
+                        if (damageable != null && weaponData.canSever && hitInfo.transform.GetComponent<EnemyPart>().isDetachable)
+                        {
                             popupDmg.isSeverDmg = true;
                             popupDmg.PopupDmg(weaponData.severDmg, hitInfo.point);//Popsup dmg text
                         }
@@ -167,6 +168,10 @@ public class Weapon : MonoBehaviour {
                 timeSinceLastShot = 0;
                 OnGunShot();
             }
+        }
+        else if(CanShoot()) {
+            StopAim();
+            StartReload();
         }
     }
     //Calculates damage based on distance
