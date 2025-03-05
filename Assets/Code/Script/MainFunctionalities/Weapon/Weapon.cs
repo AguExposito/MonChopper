@@ -46,6 +46,7 @@ public class Weapon : MonoBehaviour {
                 }
                 shotPS = transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>()!=null? transform.GetChild(i).Find("ShootPoint").GetChild(0).GetComponent<ParticleSystem>():null;
                 weaponAnimator = transform.GetChild(i).GetComponent<Animator>();
+                weaponAnimator.Play("Idle", 0, 0f);
                 weaponAnimator.SetFloat("ReloadSpeed", 1 / weaponData.reloadTime);
                 weaponAnimator.SetFloat("ShootSpeed", weaponData.fireRate);
                 weaponAnimator.SetFloat("AimSpeed", 1/weaponData.aimTime);

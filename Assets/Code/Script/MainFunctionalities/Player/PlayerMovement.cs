@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -18,6 +19,7 @@ public class FPSController : MonoBehaviour
     [SerializeField] InputActionProperty jumpInput;
     [SerializeField] InputActionProperty menuInput;
     [SerializeField] InputActionProperty inventoryInput;
+    [SerializeField] InputActionProperty weaponChange;
 
     [Space]
     [Header("Movement Variables")]
@@ -42,14 +44,22 @@ public class FPSController : MonoBehaviour
     [SerializeField] CharacterController characterController;
     [SerializeField] HudController hudController;
     [SerializeField] MenuController screenUI;
+    [SerializeField] int currentWeaponIndex = 0;
 
     void Start()
     {
-        screenUI=FindFirstObjectByType<MenuController>();
         hudController = transform.Find("CanvasHUD").GetComponent<HudController>();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        screenUI = FindAnyObjectByType<MenuController>();
+        for (int i = 0; weapon.transform.childCount > 0; i++)
+        {
+            if (weapon.transform.GetChild(i).gameObject.activeInHierarchy) { 
+                currentWeaponIndex = i;
+                break;
+            }
+        }
     }
 
     void Update()
@@ -131,25 +141,29 @@ public class FPSController : MonoBehaviour
         #endregion
 
         #region Handles Weapon Change
-        if ((Input.mouseScrollDelta.y==1 || Input.mouseScrollDelta.y == -1) && !weapon.weaponData.reloading && !weapon.weaponData.aiming) {
-            for (int i = 0; i < weapon.transform.childCount; i++)
+        float scrollValue = weaponChange.action.ReadValue<float>();
+        Debug.Log("SCROLL VALUE_ "+scrollValue);
+        if (Mathf.Abs(scrollValue)>0.1f && !weapon.weaponData.reloading && !weapon.weaponData.aiming) {
+            int weaponCount = weapon.transform.childCount;
+
+            // Desactivar el arma actual
+            weapon.transform.GetChild(currentWeaponIndex).gameObject.SetActive(false);
+
+            // Determinar el nuevo índice basado en la dirección del scroll
+            if (scrollValue > 0)
             {
-                GameObject equipedWeapon = weapon.transform.GetChild(i).gameObject;
-                if (equipedWeapon.activeInHierarchy) { 
-                    equipedWeapon.SetActive(false);
-                    if (i == weapon.transform.childCount - 1)
-                    {
-                        weapon.transform.GetChild(0).gameObject.SetActive(true);
-                        OnWeaponChange();
-                    }
-                    else {
-                        weapon.transform.GetChild(i+1).gameObject.SetActive(true);
-                        OnWeaponChange();
-                    }
-                    break;
-                }
+                currentWeaponIndex = (currentWeaponIndex + 1) % weaponCount; // Cicla hacia adelante
             }
+            else
+            {
+                currentWeaponIndex = (currentWeaponIndex - 1 + weaponCount) % weaponCount; // Cicla hacia atrás
+            }
+
+            // Activar la nueva arma
+            weapon.transform.GetChild(currentWeaponIndex).gameObject.SetActive(true);
+            OnWeaponChange(); // Llamamos la función para actualizar el cambio
         }
+        
         #endregion
     }
     public void ChangeMovementVariables(float walkSpeed, float runSpeed, float jumpPower) { 
@@ -167,12 +181,14 @@ public class FPSController : MonoBehaviour
         runInput.action.Enable();
         menuInput.action.Enable();
         inventoryInput.action.Enable();
+        weaponChange.action.Enable();
     }
     private void OnDisable()
     {
         jumpInput.action.Disable();
         runInput.action.Disable();
         menuInput.action.Disable();
-        inventoryInput.action.Disable();    
+        inventoryInput.action.Disable();
+        weaponChange.action.Disable();
     }
 }

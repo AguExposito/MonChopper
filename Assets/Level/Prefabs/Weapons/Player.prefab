@@ -3972,6 +3972,18 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 8701522005887587992, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
+  weaponChange:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Weapon Change
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: bcae5e2e-a0f4-478e-ad0d-ff8563451918
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -4333784403044385683, guid: 34699e2038ef45247a4715ba573b6593, type: 3}
   walkSpeed: 3
   runSpeed: 6
   jumpPower: 3
@@ -3984,6 +3996,7 @@ MonoBehaviour:
   characterController: {fileID: 0}
   hudController: {fileID: 0}
   screenUI: {fileID: 0}
+  currentWeaponIndex: 0
 --- !u!114 &4676046728799170223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4009,7 +4022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 100
-  armorMax: 1
+  armorMax: 20
   xpMax: 100
   health: 100
   armor: 1
