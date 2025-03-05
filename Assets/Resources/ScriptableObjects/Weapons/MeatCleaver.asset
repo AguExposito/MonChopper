@@ -23,6 +23,7 @@ MonoBehaviour:
   bulletDmgMax: 50
   bulletCritMultiplier: 1.5
   bulletAmount: 0
+  canAim: 0
   aiming: 0
   aimTime: 0
   dispersionSight: 0
@@ -33,3 +34,5 @@ MonoBehaviour:
   reloadTime: 0
   reloading: 0
   explosionForce: 0
+  canSever: 1
+  severDmg: 1

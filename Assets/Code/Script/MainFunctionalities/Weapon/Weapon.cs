@@ -144,11 +144,18 @@ public class Weapon : MonoBehaviour {
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     float distance = Vector3.Distance(transform.position, hitInfo.point);
                     //DMG feedback
-                    if(damageable != null && !hitInfo.transform.GetComponent<EnemyPart>().enemyScript.isDead)//Checks if hits something and is not dead
+                    if (damageable != null && !hitInfo.transform.GetComponent<EnemyPart>().enemyScript.isDead)//Checks if hits something and is not dead
                     {
                         popupDmg.gotWeakSpotHit = hitInfo.transform.GetComponent<EnemyPart>().isWeak;//Checks if its a weak spot for critical dmg
-                        float damage = popupDmg.gotWeakSpotHit? CalculateDmg(distance)*weaponData.bulletCritMultiplier : CalculateDmg(distance); //if its critial applies critical modifier
+                        float damage = popupDmg.gotWeakSpotHit ? CalculateDmg(distance) * weaponData.bulletCritMultiplier : CalculateDmg(distance); //if its critial applies critical modifier
                         popupDmg.PopupDmg(damage, hitInfo.point); //Popsup dmg text
+                    }
+                    else //If dead show sever popupdmg
+                    { 
+                        if(damageable != null && weaponData.canSever && hitInfo.transform.GetComponent<EnemyPart>().isDetachable) {
+                            popupDmg.isSeverDmg = true;
+                            popupDmg.PopupDmg(weaponData.severDmg, hitInfo.point);
+                        }
                     }
                     //Appl DMG
                     damageable?.TakeDamage(CalculateDmg(distance), weaponData);

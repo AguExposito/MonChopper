@@ -15,6 +15,7 @@ public class PopupDMG : MonoBehaviour
     [Header("Variables")]
     [SerializeField] private Color dmgColor;
     [SerializeField] private Color weakSpotCcolor;
+    [SerializeField] private Color severCcolor;
     [SerializeField] private float jumpForce;
     [SerializeField] private float randomDirForce;
     [SerializeField] private float timeToDisable;
@@ -23,6 +24,7 @@ public class PopupDMG : MonoBehaviour
     [Header("Read Only Variables"), Unity.Collections.ReadOnly]
     [SerializeField] private GameObject player;
     [SerializeField] public bool gotWeakSpotHit = false;
+    [SerializeField] public bool isSeverDmg = false;
     [SerializeField] private GameObject dmgTxtContainer;
     // Start is called before the first frame update
     void Start()
@@ -101,8 +103,8 @@ public class PopupDMG : MonoBehaviour
 
     void ChangeDmgTxtVariables(GameObject dmgTxt)
     {
-
         dmgTxt.GetComponent<TextMeshProUGUI>().color = gotWeakSpotHit ? weakSpotCcolor : dmgColor;
+        if (isSeverDmg) { dmgTxt.GetComponent<TextMeshProUGUI>().color = severCcolor; }
         dmgTxt.GetComponent<TextMeshProUGUI>().fontSize = gotWeakSpotHit ? 0.5f : 0.25f;
         gotWeakSpotHit = false;
     }

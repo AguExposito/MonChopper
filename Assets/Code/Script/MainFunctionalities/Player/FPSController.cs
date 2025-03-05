@@ -143,7 +143,6 @@ public class FPSController : MonoBehaviour
 
         #region Handles Weapon Change
         float scrollValue = weaponChange.action.ReadValue<float>();
-        Debug.Log("SCROLL VALUE_ "+scrollValue);
         if (Mathf.Abs(scrollValue)>0.1f && !weapon.weaponData.reloading && !weapon.weaponData.aiming) {
             int weaponCount = weapon.transform.childCount;
 

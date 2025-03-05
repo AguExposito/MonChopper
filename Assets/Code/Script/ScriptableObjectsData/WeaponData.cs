@@ -42,4 +42,8 @@ public class WeaponData : ScriptableObject
 
     [Header("OnKill")]
     public float explosionForce;
+
+    [Header("Sever")]
+    public bool canSever;
+    public float severDmg;
 }
