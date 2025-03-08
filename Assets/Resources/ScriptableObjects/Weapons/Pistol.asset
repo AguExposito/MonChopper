@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9baf3a8ff13a77a4ca976ea64818901a, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  item_Type: 0
+  itemName: 
+  itemTier: 0
+  sellPrice: 0
+  description: 
+  relatedGameObject: {fileID: 6631852581643117078, guid: 95e890179876a074e82c7e1d59952d0b, type: 3}
   weaponType: 1
   weaponName: Pistol
   weaponTier: 0

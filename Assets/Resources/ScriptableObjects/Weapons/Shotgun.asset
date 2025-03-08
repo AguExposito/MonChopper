@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9baf3a8ff13a77a4ca976ea64818901a, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
+  item_Type: 0
+  itemName: 
+  itemTier: 0
+  sellPrice: 0
+  description: 
+  relatedGameObject: {fileID: 9057879581986922444, guid: 1274330c4568ecc40941afff1275d9a7, type: 3}
   weaponType: 0
   weaponName: Chotogun
   weaponTier: 0
@@ -34,3 +40,5 @@ MonoBehaviour:
   reloadTime: 3
   reloading: 0
   explosionForce: 50
+  canSever: 0
+  severDmg: 0

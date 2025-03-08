@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class HudController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] Weapon weapon;
+    [SerializeField] WeaponController weapon;
 
     [Header("Player Variables")]
     [SerializeField] TextMeshProUGUI healthTxt;

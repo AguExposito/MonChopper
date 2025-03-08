@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using GD.MinMaxSlider;
 
-[CreateAssetMenu(fileName = "Weapon", menuName = "Weapon")]
-public class WeaponData : ScriptableObject
+[CreateAssetMenu(fileName = "Weapon", menuName = "Item/Weapon", order = 0)]
+public class WeaponData : ItemData
 {
-    public enum weapon { Shotgun, Pistol, MeatCleaver }
-    public enum tier { Common, Rare, SuperRare, Legendary, Mythic }
-    [Header("Info")]
+    public enum weapon { Shotgun, Pistol, MeleeWeapon }
+
+    [Header("WeaponInfo")]
     public weapon weaponType;
     public string weaponName;
     public tier weaponTier;
@@ -46,4 +46,6 @@ public class WeaponData : ScriptableObject
     [Header("Sever")]
     public bool canSever;
     public int severDmg;
+
+
 }

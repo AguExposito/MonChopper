@@ -7,7 +7,7 @@ using TMPro;
 public class InventoryController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Weapon weapon;
+    [SerializeField] private WeaponController weapon;
     [SerializeField] private GameObject gridSlotPrefab;
     [Space]
     [Header("Inventory Variables")]

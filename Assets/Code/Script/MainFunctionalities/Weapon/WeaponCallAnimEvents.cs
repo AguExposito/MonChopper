@@ -13,7 +13,7 @@ public class WeaponCallAnimEvents : MonoBehaviour
     float duration;
     private void Start()
     {        
-        weaponData = transform.parent.GetComponent<Weapon>().weaponData;
+        weaponData = transform.parent.GetComponent<WeaponController>().weaponData;
         playerFPSController = FindObjectOfType<FPSController>();
         animator = GetComponent<Animator>();
     }

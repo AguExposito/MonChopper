@@ -10,7 +10,7 @@ public class FPSController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Camera playerCamera;
-    [SerializeField] public Weapon weapon;
+    [SerializeField] public WeaponController weapon;
     
 
     [Space]
