@@ -17,36 +17,45 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
     public void OnDrop(PointerEventData eventData)
-    {
-        
+    {        
         if (transform.childCount == 0)
         {            
             GameObject dropped = eventData.pointerDrag;
             DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
-
+            InventoryItemController inventoryItem = dropped.GetComponent<InventoryItemController>();
             
+            //Checks if item can be placed on selected slot
+            if (CanBeReparented(inventoryItem)) {
+                draggableItem.parentAfterDrag = transform;
+            }
 
-            if (CanBeReparented(draggableItem)) {
-                draggableItem.parenAfterDrag = transform;
+            //if on equippable slot instantiate gameobject
+            if (gridType == GridType.Equippable)
+            {
+
             }
         }
     }
-    private bool CanBeReparented(DraggableItem dgi) {
+    private bool CanBeReparented(InventoryItemController dgi) {
         switch (dgi.itemType) {
-            case DraggableItem.ItemType.Weapon: {
-                    if (gridType == GridType.Equippable || gridType == GridType.Inventory) { return true; }
+            case InventoryItemController.ItemType.Weapon: {
+                    if (gridType == GridType.Equippable || gridType == GridType.Inventory) 
+                    { return true; }
                     else { return false; }
                 }
-            case DraggableItem.ItemType.Material: {
-                    if (gridType == GridType.Equippable || gridType == GridType.Inventory) { return true; }
+            case InventoryItemController.ItemType.Material: {
+                    if (gridType == GridType.Equippable || gridType == GridType.Inventory) 
+                    { return true; }
                     else { return false; }
                 }
-            case DraggableItem.ItemType.Armor: {
-                    if (gridType == GridType.Armor || gridType == GridType.Inventory) { return true; }
+            case InventoryItemController.ItemType.Armor: {
+                    if (gridType == GridType.Armor || gridType == GridType.Inventory) 
+                    { return true; }
                     else { return false; }
                 } 
-            case DraggableItem.ItemType.Mon: {
-                    if (gridType == GridType.Mon || gridType == GridType.Inventory) { return true; }
+            case InventoryItemController.ItemType.Mon: {
+                    if (gridType == GridType.Mon || gridType == GridType.Inventory) 
+                    { return true; }
                     else { return false; }
                 } 
             default: return false;

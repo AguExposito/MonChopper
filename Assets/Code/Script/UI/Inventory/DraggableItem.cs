@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler , IDragHandler
 {
-    [SerializeField] public enum ItemType {Weapon, Material, Mon, Armor };
-    [SerializeField] public ItemType itemType;
-    [HideInInspector] public Transform parenAfterDrag;
+    [HideInInspector] public Transform parentAfterDrag;
     [HideInInspector] public Image image;
     private void Start()
     {
@@ -17,7 +15,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler ,
     public void OnBeginDrag(PointerEventData eventData) 
     {
         Debug.Log("BeginDrag");
-        parenAfterDrag = transform.parent;
+        parentAfterDrag = transform.parent;
         transform.SetParent(transform.root.GetChild(transform.root.childCount-1).GetChild(0));//reparents outside grid hierarchy, canvasui is always last sibling
         transform.SetAsLastSibling(); //makes it always visible
         image.raycastTarget = false;
@@ -32,7 +30,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler ,
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("endDrag");
-        transform.SetParent(parenAfterDrag); //Sets new parent
+        transform.SetParent(parentAfterDrag); //Sets new parent
         image.raycastTarget = true;
     }
 
