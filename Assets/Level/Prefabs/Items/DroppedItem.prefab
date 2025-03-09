@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 1238135000213320021}
   - component: {fileID: 3080352902534117646}
   - component: {fileID: 4230468632249449003}
+  - component: {fileID: -2289684236576212405}
   m_Layer: 8
   m_Name: DroppedItem
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,6 +120,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItemInventory: {fileID: 4379854986837412848, guid: 64b0f427b79bbb34584ff952216b8cf3, type: 3}
   gridInventory: {fileID: 0}
+  inventoryController: {fileID: 0}
+--- !u!114 &-2289684236576212405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272987498887931596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36311220b820cf549bd59a3a5447a1f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1937124900142293868
 GameObject:
   m_ObjectHideFlags: 0

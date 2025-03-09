@@ -52,27 +52,7 @@ public class EnemyPart : MonoBehaviour, IDamageable
             }
             else 
             {
-                GameObject item = Instantiate(prefabDroppedItem, transform.position,Quaternion.identity);
-                
-                if (item.TryGetComponent<Rigidbody>(out Rigidbody rb)) //applies explosion force on spawn
-                {
-                    // Calcula la dirección opuesta al jugador
-                    Vector3 forceDirection = (rb.gameObject.transform.position - enemyScript.player.transform.position).normalized;
-
-                    // Añade una componente hacia arriba a la dirección
-                    Vector3 launchDirection = (forceDirection + Vector3.up).normalized;
-
-                    // Aplica la fuerza con un factor multiplicador para ajustar la magnitud
-                    rb.AddForce(1.5f * launchDirection, ForceMode.Impulse);
-                }
-                if (item.transform.GetChild(0).TryGetComponent<Animator>(out Animator animator)) //Sets animation active
-                {
-                    animator.SetLayerWeight(1, 1); //Changes weight
-                }
-                if (item.transform.GetChild(0).GetChild(0).TryGetComponent<SpriteRenderer>(out SpriteRenderer renderer)) //Try gets image component else will have default image
-                {
-                    renderer.sprite = spriteItemInventory;
-                }
+                prefabDroppedItem.GetComponent<ItemSpawner>().SpawnItem(transform.position, spriteItemInventory);
                 
                 gameObject.SetActive(false);
             }

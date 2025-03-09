@@ -10,9 +10,9 @@ public class PickUpItem : MonoBehaviour
     [SerializeField] private InventoryController inventoryController;
     // Start is called before the first frame update
 
-    void Awake()
+    void Start()
     {
-        inventoryController = FindObjectOfType<InventoryController>();
+        inventoryController = FindObjectOfType<InventoryController>(true);
     }
     private void OnTriggerEnter(Collider other)
     {

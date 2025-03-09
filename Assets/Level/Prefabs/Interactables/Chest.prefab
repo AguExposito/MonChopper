@@ -10,7 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4970822859762139325}
   - component: {fileID: 6909787228499143138}
-  m_Layer: 0
+  - component: {fileID: 6409436619235501570}
+  - component: {fileID: 200448573345887079}
+  - component: {fileID: 1557088024017014345}
+  - component: {fileID: 1769976914967881758}
+  m_Layer: 10
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 9002396332628446860}
   - {fileID: 1139902108571350740}
+  - {fileID: 1340374715812412692}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &6909787228499143138
@@ -55,6 +60,89 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6409436619235501570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439172179937150533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6088fba365dd7be4fa5278caeb8cc1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabDroppedObject: {fileID: 272987498887931596, guid: 8fc8f7319aac8454390aa215ffd5d1fd, type: 3}
+  spriteItemInventory: {fileID: 21300000, guid: 33e1e6147b08d6d4ab5a134dd49ed962, type: 3}
+--- !u!135 &200448573345887079
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439172179937150533}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0.56, z: 0}
+--- !u!65 &1557088024017014345
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439172179937150533}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 1.1402388, z: 1}
+  m_Center: {x: 0, y: 0.5701194, z: 0}
+--- !u!54 &1769976914967881758
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439172179937150533}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1559892244855626740
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139902108571350740}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ChestTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +188,7 @@ GameObject:
   - component: {fileID: 8637573541295349990}
   - component: {fileID: 6324273716057620153}
   - component: {fileID: 8228445626815459011}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +271,7 @@ GameObject:
   - component: {fileID: 1680176215479246148}
   - component: {fileID: 2488699851821229325}
   - component: {fileID: 4821879780521213560}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tube_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9002396332628446860}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ChestBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +388,7 @@ GameObject:
   - component: {fileID: 1897638830602862318}
   - component: {fileID: 7646156881159921837}
   - component: {fileID: 3075995247627378583}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cuboid_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,6 +460,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5609904765782843285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1340374715812412692}
+  m_Layer: 10
+  m_Name: SpawnOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1340374715812412692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904765782843285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.342, z: 0.013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4970822859762139325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7745048366188455786
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +502,7 @@ GameObject:
   - component: {fileID: 3565372325691013872}
   - component: {fileID: 4656330927686936960}
   - component: {fileID: 1231210327206960684}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cuboid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +585,7 @@ GameObject:
   - component: {fileID: 5457537160603917798}
   - component: {fileID: 2069066932109993852}
   - component: {fileID: 3709655860554929853}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cuboid_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +668,7 @@ GameObject:
   - component: {fileID: 5768718726976873066}
   - component: {fileID: 8587992045120380854}
   - component: {fileID: 3149550143551839941}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

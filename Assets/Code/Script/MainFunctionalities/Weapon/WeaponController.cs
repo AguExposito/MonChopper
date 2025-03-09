@@ -63,33 +63,39 @@ public class WeaponController : MonoBehaviour {
     }
 
     private void Update() {
-        #region Handles Inputs
-        //when shoot input
-        if (shootInput.action.inProgress) { 
-            Shoot();
-        }//when aim input
-        if (aimInput.action.inProgress && weaponData.canAim) { 
-            Aim();            
-        }
-        else
+        if (weaponData != null)
         {
-            StopAim();
-        }
-        //when reload input
-        if (reloadInput.action.inProgress && weaponData.currentAmmo!=weaponData.magSize)
-        {
-            StopAim();
-            StartReload();
-        }
-        #endregion
+            #region Handles Inputs
+            //when shoot input
+            if (shootInput.action.inProgress)
+            {
+                Shoot();
+            }//when aim input
+            if (aimInput.action.inProgress && weaponData.canAim)
+            {
+                Aim();
+            }
+            else
+            {
+                StopAim();
+            }
+            //when reload input
+            if (reloadInput.action.inProgress && weaponData.currentAmmo != weaponData.magSize)
+            {
+                StopAim();
+                StartReload();
+            }
+            #endregion
 
-        //Shoot Delay
-        if (timeSinceLastShot < 1f / (weaponData.fireRate)) {
-            timeSinceLastShot += Time.deltaTime;
-        }
+            //Shoot Delay
+            if (timeSinceLastShot < 1f / (weaponData.fireRate))
+            {
+                timeSinceLastShot += Time.deltaTime;
+            }
 
-        //debug methods
-        Debug.DrawRay(cam.position, cam.forward * weaponData.maxDistance);
+            //debug methods
+            Debug.DrawRay(cam.position, cam.forward * weaponData.maxDistance);
+        }
     }
 
     #region Reload Methods
