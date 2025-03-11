@@ -7,12 +7,16 @@ public class PickUpItem : MonoBehaviour
 {
     [SerializeField] public GameObject prefabItemInventory;
     [SerializeField] private GameObject gridInventory;
+    [SerializeField] private GameObject weaponInventory;
     [SerializeField] private InventoryController inventoryController;
+    [SerializeField] private ItemManager itemManager;
     // Start is called before the first frame update
 
     void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>(true);
+        weaponInventory = GameObject.FindGameObjectWithTag("WeaponInventory");
+        itemManager = FindObjectOfType<ItemManager>(true);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -27,6 +31,9 @@ public class PickUpItem : MonoBehaviour
         {
             if (gridInventory.transform.GetChild(i).childCount == 0)//checks that gridslot desn't have any child
             {
+                //WeaponData  weaponData = JsonManager.ScriptableObjectLoadFromFile<WeaponData>("Weapon" + JsonManager.fileId);
+                //Debug.Log(weaponData + " " + weaponData.relatedSprite);
+                //itemManager.itemDictionary.ContainsKey(weaponData.relatedSprite);
                 GameObject item = Instantiate(prefabItemInventory, gridInventory.transform.GetChild(i)); //instantiates image
                 if (item.TryGetComponent<Image>(out Image image)) //Try gets image component else will have default image
                 {

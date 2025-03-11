@@ -247,7 +247,7 @@ public class WeaponController : MonoBehaviour {
             if (!weaponDictionary.ContainsKey(weapon))
             {
                 weaponDictionary.Add(weapon, weapon.weaponData);
-                Debug.Log("Arma agregada: " + weapon.weaponData.weaponName);
+                Debug.Log("Arma agregada: " + weapon.weaponData.itemName);
             }
         }
         else
@@ -262,7 +262,7 @@ public class WeaponController : MonoBehaviour {
             if (weaponDictionary.ContainsKey(weapon))
             {
                 weaponDictionary.Remove(weapon);
-                Debug.Log("Arma Removida: " + weapon.weaponData.weaponName);
+                Debug.Log("Arma Removida: " + weapon.weaponData.itemName);
             }
         }
         else

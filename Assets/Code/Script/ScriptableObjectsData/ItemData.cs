@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "Item")]
 public class ItemData : ScriptableObject
 {
-    public enum itemType { weapon, armor, valuable, consumable, pickup, other }
+    public enum itemType { weapon, armor, mateial, valuable, consumable, pickup, other }
     public enum tier { Common, Rare, SuperRare, Legendary, Mythic }
 
     [Header("ItemInfo")]
@@ -14,6 +14,7 @@ public class ItemData : ScriptableObject
     public tier itemTier;
     public float sellPrice;
     public string description;
+    public Sprite relatedSprite;
     public GameObject relatedGameObject;
 
 }

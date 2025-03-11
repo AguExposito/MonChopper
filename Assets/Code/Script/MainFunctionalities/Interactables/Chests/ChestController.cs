@@ -25,7 +25,7 @@ public class ChestController : MonoBehaviour
             if (!open)
             {
                 GetComponent<Animator>().Play("OpenChest");
-                prefabDroppedObject.GetComponent<ItemSpawner>().SpawnItem(transform.GetChild(2).transform.position, spriteItemInventory,2);
+                prefabDroppedObject.GetComponent<ItemSpawner>().SpawnItem(transform.GetChild(2).transform.position, spriteItemInventory,ItemData.itemType.weapon,2);
                 open= true;
             }
         }

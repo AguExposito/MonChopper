@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItemInventory: {fileID: 4379854986837412848, guid: 64b0f427b79bbb34584ff952216b8cf3, type: 3}
   gridInventory: {fileID: 0}
+  weaponInventory: {fileID: 0}
   inventoryController: {fileID: 0}
 --- !u!114 &-2289684236576212405
 MonoBehaviour:
@@ -133,6 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36311220b820cf549bd59a3a5447a1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 3d621480cfea555468143b614395f98d, type: 2}
+  weaponData: {fileID: 0}
+  weaponData2: {fileID: 11400000, guid: 3d621480cfea555468143b614395f98d, type: 2}
 --- !u!1 &1937124900142293868
 GameObject:
   m_ObjectHideFlags: 0

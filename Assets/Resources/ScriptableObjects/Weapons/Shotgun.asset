@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   item_Type: 0
-  itemName: 
+  itemName: chotogun
   itemTier: 0
   sellPrice: 0
   description: 
   relatedGameObject: {fileID: 9057879581986922444, guid: 1274330c4568ecc40941afff1275d9a7, type: 3}
   weaponType: 0
-  weaponName: Chotogun
+  weaponName: 
   weaponTier: 0
   fireRate: 1
   maxDistance: 15

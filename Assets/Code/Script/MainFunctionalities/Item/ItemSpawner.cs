@@ -6,10 +6,11 @@ using static UnityEditor.Progress;
 public class ItemSpawner : MonoBehaviour
 {
     public static GameObject player;
+    public ItemData data;
     private void Awake()
     {
     }
-    public void SpawnItem(Vector3 originPosition, Sprite spriteItemInventory, float itemLaunchForce=1.5f)
+    public void SpawnItem(Vector3 originPosition, Sprite spriteItemInventory,ItemData.itemType itemType, float itemLaunchForce=1.5f)
     {
         player = GameObject.FindGameObjectWithTag("Player");
         GameObject item = Instantiate(gameObject, originPosition, Quaternion.identity);
@@ -32,6 +33,38 @@ public class ItemSpawner : MonoBehaviour
         {
             renderer.sprite = spriteItemInventory;
         }
+        AssignScriptableObject(itemType, spriteItemInventory);
     }
-    
+
+    public void AssignScriptableObject(ItemData.itemType itemType, Sprite spriteItemInventory) {
+        switch (itemType)
+        {
+            case ItemData.itemType.weapon:
+                {
+                    WeaponData weaponData = (WeaponData)Instantiate(data);
+                    weaponData.weaponType=WeaponData.weapon.Pistol;
+                    weaponData.relatedSprite= spriteItemInventory;
+                    weaponData.GenerateRandomWeapon(weaponData.weaponType);
+                    string jsonData = JsonUtility.ToJson(weaponData,true);
+                    JsonManager.SaveToFile("Weapon"+JsonManager.fileId, weaponData);
+
+                }
+                break;
+            case ItemData.itemType.mateial:
+                {
+                    EnemyItemData enemyItemData = Instantiate((EnemyItemData)data);
+                }
+                break;
+            case ItemData.itemType.valuable:
+                {
+                    EnemyItemData enemyItemData = Instantiate((EnemyItemData)data);
+                }
+                break;
+            default: 
+                { 
+                    Instantiate(data); 
+                } break;
+        
+        }
+    }
 }
