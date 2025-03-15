@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemSpawner : MonoBehaviour
 {
@@ -44,15 +43,16 @@ public class ItemSpawner : MonoBehaviour
                     WeaponData weaponData = (WeaponData)Instantiate(data);
                     weaponData.weaponType=WeaponData.weapon.Pistol;
                     weaponData.relatedSprite= spriteItemInventory;
+                    weaponData.itemId = PlayerPrefs.GetInt("fileId");
                     weaponData.GenerateRandomWeapon(weaponData.weaponType);
                     string jsonData = JsonUtility.ToJson(weaponData,true);
-                    JsonManager.SaveToFile("Weapon"+JsonManager.fileId, weaponData);
+                    JsonManager.SaveToFile("Weapon", weaponData);
 
                 }
                 break;
-            case ItemData.itemType.mateial:
+            case ItemData.itemType.material:
                 {
-                    EnemyItemData enemyItemData = Instantiate((EnemyItemData)data);
+                    //EnemyItemData enemyItemData = Instantiate((EnemyItemData)data);
                 }
                 break;
             case ItemData.itemType.valuable:

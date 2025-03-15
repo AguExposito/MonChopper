@@ -52,7 +52,10 @@ public class EnemyPart : MonoBehaviour, IDamageable
             }
             else 
             {
-                prefabDroppedItem.GetComponent<ItemSpawner>().SpawnItem(transform.position, spriteItemInventory,ItemData.itemType.mateial);
+                if (prefabDroppedItem.TryGetComponent<ItemSpawner>(out ItemSpawner itemSpawner))
+                {
+                    itemSpawner.SpawnItem(transform.position, spriteItemInventory, ItemData.itemType.material);
+                }
                 
                 gameObject.SetActive(false);
             }

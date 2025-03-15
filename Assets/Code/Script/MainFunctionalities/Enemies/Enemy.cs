@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GD.MinMaxSlider;
 using Unity.Collections;
 using TMPro;
 using System.Reflection;

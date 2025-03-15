@@ -6,7 +6,14 @@ public class JsonManager
     public static int fileId;
     public static void SaveToFile(string fileName, object data)
     {
-        fileId++;
+        if (!PlayerPrefs.HasKey("fileId"))
+        {
+            PlayerPrefs.SetInt("fileId", fileId);
+        }
+        fileId=PlayerPrefs.GetInt("fileId", 0);
+        PlayerPrefs.SetInt("fileId", fileId+1);
+        PlayerPrefs.Save();
+        fileName = fileName+fileId;
         string path = Path.Combine(Application.persistentDataPath, fileName);
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);

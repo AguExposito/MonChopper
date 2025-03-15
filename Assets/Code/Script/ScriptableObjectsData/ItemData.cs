@@ -5,10 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "Item")]
 public class ItemData : ScriptableObject
 {
-    public enum itemType { weapon, armor, mateial, valuable, consumable, pickup, other }
+    public enum itemType { weapon, armor, material, valuable, consumable, pickup, other }
     public enum tier { Common, Rare, SuperRare, Legendary, Mythic }
 
     [Header("ItemInfo")]
+    public int itemId;
     public itemType item_Type;
     public string itemName;
     public tier itemTier;

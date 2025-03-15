@@ -31,9 +31,9 @@ public class PickUpItem : MonoBehaviour
         {
             if (gridInventory.transform.GetChild(i).childCount == 0)//checks that gridslot desn't have any child
             {
-                //WeaponData  weaponData = JsonManager.ScriptableObjectLoadFromFile<WeaponData>("Weapon" + JsonManager.fileId);
-                //Debug.Log(weaponData + " " + weaponData.relatedSprite);
-                //itemManager.itemDictionary.ContainsKey(weaponData.relatedSprite);
+                WeaponData  weaponData = JsonManager.ScriptableObjectLoadFromFile<WeaponData>("Weapon" + JsonManager.fileId);
+                Debug.Log(weaponData + " " + weaponData.itemId);
+                itemManager.ReturnToPool(weaponData.itemId.ToString(), weaponData.relatedGameObject);
                 GameObject item = Instantiate(prefabItemInventory, gridInventory.transform.GetChild(i)); //instantiates image
                 if (item.TryGetComponent<Image>(out Image image)) //Try gets image component else will have default image
                 {

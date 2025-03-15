@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GD.MinMaxSlider;
 using System;
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Item/Weapon", order = 0)]
